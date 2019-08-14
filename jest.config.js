@@ -13,7 +13,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json'],
   moduleNameMapper: {
     '^app-store': '<rootDir>/src/store',
-    '\\.(css|scss)$': '<rootDir>/test/__mocks__/styleMock.js',
+    '\\.(css|less)$': '<rootDir>/test/__mocks__/styleMock.js',
     '\\.(jpe?g|png|gif|ttf|eot|woff|md)$':
       '<rootDir>/test/__mocks__/fileMock.js',
     '\\.svg$': '<rootDir>/test/__mocks__/svgMock.js',
