@@ -1,0 +1,20 @@
+@import '../../styles/variables.less';
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: @layout-body-background;
+
+  .page-header {
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    background: @layout-header-background;
+  }
+
+  .page-content {
+    flex: 1;
+  }
+}

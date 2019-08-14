@@ -19,6 +19,8 @@ import SpreadSVG from '@assets/svg/spread.svg';
 import TouchdownSVG from '@assets/svg/touchdown.svg';
 import WeatherSVG from '@assets/svg/weather.svg';
 
+import './SvgIcon.less';
+
 // TODO: check Image component and allow customization
 function SvgIcon(props) {
   const { name, ...restProps } = props;

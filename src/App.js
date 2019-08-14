@@ -7,6 +7,8 @@ import Home from '@pages/Home';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
 
+import '@styles/main.less';
+
 class App extends Component {
   static propTypes = {
     loading: PropTypes.bool,
