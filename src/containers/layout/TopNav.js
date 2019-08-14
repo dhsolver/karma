@@ -11,8 +11,6 @@ export const NAV_TYPES = {
 function TopNav(props) {
   const { type, children } = props;
 
-  console.log('hehe', type);
-
   if (type === NAV_TYPES.SECONDARY) {
     return (
       <div className="page-header">
