@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Menu } from 'antd';
 import Logo from '@components/Logo';
+import { AuthSelectors } from '@redux/AuthRedux';
+import history from '@utils/history';
 
 export const NAV_TYPES = {
   PRIMARY: 'primary',
@@ -8,13 +12,29 @@ export const NAV_TYPES = {
 };
 
 function TopNav(props) {
-  const { type } = props;
+  const { type, isLoggedIn } = props;
 
-  const renderPrimaryNav = () => {
+  const handleMenuClick = menuKey => {
+    history.push(`/${menuKey}`);
+  };
+
+  const renderAnnonMenus = () => {
     return (
-      <div className="page-header">
-        <Logo />
-      </div>
+      <Menu onClick={handleMenuClick} mode="horizontal">
+        <Menu.Item key="mlb">NLB</Menu.Item>
+        <Menu.Item key="nba">NBA</Menu.Item>
+        <Menu.Item key="nfl">NFL</Menu.Item>
+      </Menu>
+    );
+  };
+
+  const renderUserMenus = () => {
+    return (
+      <Menu onClick={handleMenuClick} mode="horizontal">
+        <Menu.Item key="where-to-bet">Where to Bet</Menu.Item>
+        <Menu.Item key="bet-calculator">Bet Calculator</Menu.Item>
+        <Menu.Item key="my-bet-tracker">My Bet Tracker</Menu.Item>
+      </Menu>
     );
   };
 
@@ -30,11 +50,24 @@ function TopNav(props) {
     return renderSecondaryNav();
   }
 
-  return renderPrimaryNav();
+  return (
+    <div className="page-header primary">
+      <div className="menu-blocks">
+        <Logo />
+        {renderAnnonMenus()}
+      </div>
+      <div className="menu-blocks">{isLoggedIn && renderUserMenus()}</div>
+    </div>
+  );
 }
 
 TopNav.propTypes = {
-  type: PropTypes.oneOf([NAV_TYPES.PRIMARY, NAV_TYPES.SECONDARY])
+  type: PropTypes.oneOf([NAV_TYPES.PRIMARY, NAV_TYPES.SECONDARY]),
+  isLoggedIn: PropTypes.bool
 };
 
-export default TopNav;
+const mapStatesToProps = state => ({
+  isLoggedIn: AuthSelectors.selectIsLoggedIn(state)
+});
+
+export default connect(mapStatesToProps)(TopNav);
