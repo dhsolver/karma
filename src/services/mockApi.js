@@ -39,7 +39,7 @@ function createApi() {
     checkEmailAvailability: async ({ email }) => {
       const { user } = fixtures;
       if (user.email === email) {
-        throw createError(HttpStatus.BAD_REQUEST);
+        throw createError(400);
       }
 
       return createResult({

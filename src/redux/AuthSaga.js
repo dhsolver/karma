@@ -1,8 +1,10 @@
 import { all, takeLatest } from 'redux-saga/effects';
 import { AuthTypes } from './AuthRedux';
+import history from '@utils/history';
 
 export function* storeToken(token) {
   localStorage.setItem('token', token);
+  history.push('/');
   yield true;
 }
 

@@ -1,0 +1,41 @@
+@import '../../styles/variables.less';
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: @layout-body-background;
+
+  .page-header {
+    display: flex;
+    height: 60px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: @layout-header-background;
+    padding: 20px 48px;
+
+    &.primary {
+      justify-content: space-between;
+
+      .menu-blocks {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .logo {
+        padding-right: 20px;
+      }
+
+      .ant-menu-horizontal {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .page-content {
+    flex: 1;
+  }
+}

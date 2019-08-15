@@ -2,10 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { Spin } from 'antd';
 import Login from '@pages/Login';
 import Home from '@pages/Home';
+import Account from '@pages/Account';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
+
+import '@styles/main.less';
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { isAuthenticated } = rest;
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
+      }
+    />
+  );
+};
 
 class App extends Component {
   static propTypes = {
@@ -21,41 +37,38 @@ class App extends Component {
     startup();
   }
 
-  renderAnonRoutes() {
-    return (
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route render={() => <Redirect to="/login" />} />
-      </Switch>
-    );
-  }
+  renderContent() {
+    const { isLoggedIn } = this.props;
 
-  renderUserRoutes() {
     return (
       <Switch>
         <Route exact path="/home" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <PrivateRoute
+          exact
+          path="/account"
+          component={Account}
+          isAuthenticated={!!isLoggedIn}
+        />
         <Route render={() => <Redirect to="/home" />} />
       </Switch>
     );
   }
 
-  renderContent() {
-    const { isLoggedIn } = this.props;
+  render() {
+    const { loading, loaded } = this.props;
 
-    if (!isLoggedIn) {
-      return this.renderAnonRoutes();
+    if (loading || !loaded) {
+      return <Spin />;
     }
 
-    return this.renderUserRoutes();
-  }
-
-  render() {
     return this.renderContent();
   }
 }
 
 const mapStatesToProps = state => ({
   loading: AppSelectors.selectLoading(state),
+  loaded: AppSelectors.selectLoaded(state),
   isLoggedIn: AuthSelectors.selectIsLoggedIn(state)
 });
 

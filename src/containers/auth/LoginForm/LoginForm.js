@@ -37,20 +37,24 @@ class LoginForm extends React.Component {
       <Form>
         <Field
           component={TextInput}
-          mb={4}
           name="email"
           type="email"
+          size="large"
           placeholder="Email"
         />
         <Field
           component={TextInput}
-          mb={4}
           name="password"
           type="password"
+          size="large"
           placeholder="Password"
         />
-        <Button type="submit" disabled={!isValid || isSubmitting}>
-          Continue
+        <Button
+          type="primary"
+          htmlType="submit"
+          disabled={!isValid || isSubmitting}
+        >
+          LOGIN
         </Button>
       </Form>
     );

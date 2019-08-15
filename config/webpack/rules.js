@@ -1,5 +1,3 @@
-const antdVars = require('./antdvars');
-
 module.exports = [
   {
     test: /\.(js|jsx)$/,
@@ -45,14 +43,6 @@ module.exports = [
     ]
   },
   {
-    test: /\.scss$/,
-    use: [
-      'style-loader', // creates style nodes from JS strings
-      'css-loader', // translates CSS into CommonJS
-      'sass-loader' // compiles Sass to CSS, using Node Sass by default
-    ]
-  },
-  {
     test: /\.less$/,
     use: [
       {
@@ -64,11 +54,7 @@ module.exports = [
       {
         loader: 'less-loader',
         options: {
-          strictMath: true,
-          noIeCompat: true,
-          options: {
-            modifyVars: antdVars
-          }
+          javascriptEnabled: true
         }
       }
     ]

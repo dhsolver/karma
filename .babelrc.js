@@ -20,7 +20,8 @@ module.exports = {
           '@containers': './src/containers',
           '@pages': './src/pages',
           '@redux': './src/redux',
-          '@utils': './src/utils'
+          '@utils': './src/utils',
+          '@services': './src/services'
         }
       }
     ]
