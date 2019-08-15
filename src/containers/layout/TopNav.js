@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'antd';
 import Logo from '@components/Logo';
 
 export const NAV_TYPES = {
@@ -9,22 +8,29 @@ export const NAV_TYPES = {
 };
 
 function TopNav(props) {
-  const { type, children } = props;
+  const { type } = props;
 
-  if (type === NAV_TYPES.SECONDARY) {
+  const renderPrimaryNav = () => {
     return (
       <div className="page-header">
         <Logo />
       </div>
     );
+  };
+
+  const renderSecondaryNav = () => {
+    return (
+      <div className="page-header">
+        <Logo />
+      </div>
+    );
+  };
+
+  if (type === NAV_TYPES.SECONDARY) {
+    return renderSecondaryNav();
   }
-  return (
-    <div className="page-header">
-      <Row type="flex" justify="center">
-        <Col>{children}</Col>
-      </Row>
-    </div>
-  );
+
+  return renderPrimaryNav();
 }
 
 TopNav.propTypes = {

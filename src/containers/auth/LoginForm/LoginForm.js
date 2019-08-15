@@ -49,8 +49,12 @@ class LoginForm extends React.Component {
           size="large"
           placeholder="Password"
         />
-        <Button primary type="submit" disabled={!isValid || isSubmitting}>
-          Continue
+        <Button
+          type="primary"
+          htmlType="submit"
+          disabled={!isValid || isSubmitting}
+        >
+          LOGIN
         </Button>
       </Form>
     );
