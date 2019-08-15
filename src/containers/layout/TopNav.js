@@ -14,7 +14,8 @@ export const NAV_TYPES = {
 function TopNav(props) {
   const { type, isLoggedIn } = props;
 
-  const handleMenuClick = menuKey => {
+  const handleMenuClick = item => {
+    const { key: menuKey } = item;
     history.push(`/${menuKey}`);
   };
 
