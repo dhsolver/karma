@@ -10,6 +10,7 @@ import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
 
 import '@styles/main.less';
+import Sales from '@pages/Sales';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isAuthenticated } = rest;
@@ -44,6 +45,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/home" component={Home} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/sales" component={Sales} />
         <PrivateRoute
           exact
           path="/account"
