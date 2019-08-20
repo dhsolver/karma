@@ -10,9 +10,13 @@ const { Title, Text } = Typography;
 export default function Sales() {
   return (
     <Page>
-      <TopNav />
+      <TopNav type="secondary" />
       <PageContent className="sales">
-        <Row type="flex" justify="center" style={{ marginTop: '50px' }}>
+        <Row
+          type="flex"
+          justify="center"
+          className="sales-main-heading-container"
+        >
           <Title level={1} className="sales-main-heading">
             Bet Like a Winner
           </Title>

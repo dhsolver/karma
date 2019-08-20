@@ -1,16 +1,41 @@
 @import "../../styles/variables.less";
 
 .sales {
-    h1&-main-heading{
-        font-size: 57px;
-        color: @primary-color;
-        margin-bottom: 5px;
+    &-main-heading{
+        &-container{
+            margin-top: 50px;
+            @media only screen and (max-width: 900px){
+                margin-top: 20px;
+            }
+        }
+        h1&{
+            font-size: 57px;
+            color: @primary-color;
+            margin-bottom: 5px;
+            @media only screen and (max-width: 580px){
+                font-size: 40px;
+            }
+            @media only screen and (max-width: 380px){
+                font-size: 34px;
+            }
+        }
+        
     }
     span&-sub-heading{
         font-size: 19px;
         width: 40%;
+        min-width: 380px;
         text-align: center;
         margin-bottom: 50px;
+        @media only screen and (max-width: 580px){
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+        @media only screen and (max-width: 390px){
+            font-size: 15px;
+            min-width: 300px;
+            margin-bottom: 20px;
+        }
+        
     }
-
 }

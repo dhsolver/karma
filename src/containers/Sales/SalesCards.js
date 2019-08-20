@@ -7,7 +7,7 @@ const SalesCards = () => {
       type="flex"
       justify="center"
       align="middle"
-      style={{ marginBottom: '100px' }}
+      style={{ marginBottom: '100px', order: '3' }}
     >
       <SalesCard
         title="Regular Monthly"
