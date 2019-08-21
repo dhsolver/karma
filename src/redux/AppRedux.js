@@ -37,7 +37,7 @@ export const setLoaded = (state, { loaded }) => ({
 export const setAppData = (state, { data }) => ({
   ...state,
   data: {
-    ...state.app.data,
+    ...state.data,
     ...data
   }
 });

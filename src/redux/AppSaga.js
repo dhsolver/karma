@@ -12,7 +12,11 @@ export function* startup() {
   }
 
   // do initial loading
+  const data = {
+    pr: true
+  };
 
+  yield put(AppActions.setAppData(data));
   yield put(AppActions.setLoaded(true));
 }
 
