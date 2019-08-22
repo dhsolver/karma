@@ -8,6 +8,7 @@ import Home from '@pages/Home';
 import Account from '@pages/Account';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
+import { ButtonDemo } from '@components/Button';
 
 import '@styles/main.less';
 
@@ -44,6 +45,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/home" component={Home} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/btn-demo" component={ButtonDemo} />
         <PrivateRoute
           exact
           path="/account"
