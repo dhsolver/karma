@@ -1,0 +1,77 @@
+@import '../../styles/variables.less';
+
+.parlayBet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h2.ant-typography {
+    margin: 48px 0px;
+  }
+
+  .parlayBet__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  .parlayBet_forms-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .parlayBet__list-container {
+    width:251px;
+    margin: 0 30px;
+  }
+
+  .parlayBet__amount-container {
+    height: 126px;
+    width: 580px;
+    border: 1px solid @border-color-base;
+    opacity: 0.8;
+    background-color: @background-color-base;
+    box-shadow: @box-shadow-base;
+    padding: 20px 44px;
+    margin-bottom: 19px;
+  }
+
+  .parlayBet__form-container {
+    height: 611px;
+    width: 580px;
+    border: 1px solid @border-color-base;
+    opacity: 0.8;
+    background-color: @background-color-base;
+    box-shadow: @box-shadow-base;
+    padding: 44px;
+  }
+
+  .ant-list-item {
+    display: block;
+  }
+
+  form {
+    .ant-form-item {
+      margin-bottom: 31px;
+    }
+
+    .ant-form-explain {
+      padding-top: 2px;
+    }
+
+    .ant-input-lg {
+      height: 50px;
+    }
+
+    .ant-btn-primary {
+      height: 50px;
+      width: 100%;
+
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+}

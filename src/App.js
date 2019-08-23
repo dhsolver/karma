@@ -6,6 +6,9 @@ import { Spin } from 'antd';
 import Login from '@pages/Login';
 import Home from '@pages/Home';
 import Account from '@pages/Account';
+import SingleBet from '@pages/SingleBet';
+import PropBet from '@pages/PropBet';
+import ParlayBet from '@pages/ParlayBet';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
 
@@ -48,6 +51,36 @@ class App extends Component {
           exact
           path="/account"
           component={Account}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/my-bet-tracker"
+          component={SingleBet}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/enter-bet"
+          component={SingleBet}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/single-game"
+          component={SingleBet}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/prop-bet"
+          component={PropBet}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/parlay"
+          component={ParlayBet}
           isAuthenticated={!!isLoggedIn}
         />
         <Route render={() => <Redirect to="/home" />} />

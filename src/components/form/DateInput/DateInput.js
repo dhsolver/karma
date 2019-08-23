@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form, Input, Icon } from 'antd';
+import moment from 'moment';
+import { Form, DatePicker } from 'antd';
 import { getIn } from 'formik';
 
-function TextInput(props) {
+function DateInput(props) {
   const { field, form, ...restProps } = props;
 
   const error = getIn(form.errors, field.name);
@@ -11,26 +12,24 @@ function TextInput(props) {
   const hasError = error !== undefined && touched;
   const isValid = !error && touched;
 
-  const { name, onChange, onBlur, value } = field;
-  const { label, addontype } = restProps;
+  const { name, onChange, value, onBlur } = field;
+  const { label } = restProps;
+
+  const dateFormat = 'DD/MM/YYYY';
 
   return (
     <Form.Item
+      label={label}
       validateStatus={hasError ? 'error' : undefined}
       hasFeedback={isValid}
       help={(hasError && <li>{error}</li>) || (isValid && '')}
-      label={label}
       colon={false}
     >
-      <Input
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        addonBefore={addontype ? <Icon type={addontype} /> : null}
-        {...restProps}
+      <DatePicker
+        defaultValue={moment(value, dateFormat)}
+        format={dateFormat}
       />
     </Form.Item>
   );
 }
-export default TextInput;
+export default DateInput;

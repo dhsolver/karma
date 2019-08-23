@@ -20,7 +20,8 @@ export const INITIAL_STATE = {
 /* ------- Selectors --------- */
 export const AppSelectors = {
   selectLoading: state => state.app.loading,
-  selectLoaded: state => state.app.loaded
+  selectLoaded: state => state.app.loaded,
+  selectData: state => state.app.data
 };
 
 /* -------- Reducers ---------- */

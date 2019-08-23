@@ -7,19 +7,78 @@ import AuthActions from './AuthRedux';
 
 export function* startup() {
   const token = localStorage.getItem('token');
+  const data = {
+    "betTypeMenu": [
+      {
+        "id": 1,
+        "name": "Money Line"
+      },
+      {
+        "id": 2,
+        "name": "Spread"
+      },
+      {
+        "id": 3,
+        "name": "Over/Under"
+      }
+    ],
+    "sportMenu": [
+      {
+        "id": 1,
+        "name": "NFL"
+      }
+    ],
+    "teamMenu": [
+      {
+        "id": 1,
+        "name": "SEA"
+      },
+      {
+        "id": 2,
+        "name": "ARI"
+      }
+    ],
+    "matchupMenu": [
+      {
+        "id": 1,
+        "name": "HOU at SEA"
+      }
+    ],
+    "overUnderMenu": [
+      {
+        "id": 1,
+        "name": "Over"
+      },
+      {
+        "id": 2,
+        "name": "Under"
+      }
+    ],
+    "playerMenu": [
+      {
+        "id": 1,
+        "name": "Alex Bregman"
+      }
+    ],
+    "statMenu": [
+      {
+        "id": 1,
+        "name": "Hits"
+      }
+    ]
+  };
   if (token) {
     yield put(AuthActions.setLoggedIn(token));
   }
 
   // do initial loading
-  const data = {
-    pr: true
-  };
-
+  
   yield put(AppActions.setAppData(data));
   yield put(AppActions.setLoaded(true));
 }
 
 export default function* root() {
-  yield all([takeLatest(AppTypes.STARTUP, startup)]);
+  yield all([
+    takeLatest(AppTypes.STARTUP, startup)
+  ]);
 }

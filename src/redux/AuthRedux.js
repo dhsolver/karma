@@ -11,7 +11,7 @@ export default Creators;
 
 /* ------- Initial State --------- */
 export const INITIAL_STATE = {
-  token: null,
+  token: true, // null
   me: null
 };
 

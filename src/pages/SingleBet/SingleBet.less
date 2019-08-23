@@ -1,0 +1,44 @@
+@import '../../styles/variables.less';
+
+.singleBet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h2.ant-typography {
+    margin: 48px 0px;
+  }
+
+  .singleBet__form-container {
+    height: 541px;
+    width: 580px;
+    border: 1px solid @border-color-base;
+    opacity: 0.8;
+    background-color: @background-color-base;
+    box-shadow: @box-shadow-base;
+    padding: 44px;
+  }
+
+  form {
+    .ant-form-item {
+      margin-bottom: 31px;
+    }
+
+    .ant-form-explain {
+      padding-top: 2px;
+    }
+
+    .ant-input-lg {
+      height: 50px;
+    }
+
+    .ant-btn-primary {
+      height: 50px;
+      width: 100%;
+
+      font-size: 16px;
+      text-align: center;
+    }
+  }
+}
