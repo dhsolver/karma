@@ -20,7 +20,7 @@ class LoginForm extends React.Component {
     setSubmitting(true);
 
     try {
-      const { result } = await API.loginWithEmail(values);
+      const result = await API.loginWithEmail(values);
       setSubmitting(false);
       onSubmit(result);
     } catch (err) {
