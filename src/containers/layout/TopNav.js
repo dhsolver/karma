@@ -21,32 +21,32 @@ class RenderMobileUserMenus extends Component {
     };
   }
   toggleExpandedMenu = () => {
-    this.setState(
-      {
-        isExpanded: !this.state.isExpanded
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      isExpanded: !this.state.isExpanded
+    });
   };
   render() {
     return (
       <React.Fragment>
-        <Menu mode="horizontal" style={{ display: 'flex' }}>
-          <Menu.Item>
-            {!this.state.isExpanded && (
+        <ul>
+          {!this.state.isExpanded && (
+            <li style={{ display: 'inline-block' }}>
               <Button type="primary" variant="cta" size="very-small">
                 Free trial
               </Button>
-            )}
-          </Menu.Item>
-          <li onClick={this.toggleExpandedMenu} style={{ cursor: 'pointer' }}>
+            </li>
+          )}
+          <li
+            onClick={this.toggleExpandedMenu}
+            style={{ cursor: 'pointer', display: 'inline-block' }}
+          >
             {this.state.isExpanded ? (
               <Icon type="close" />
             ) : (
               <Icon type="menu" />
             )}
           </li>
-        </Menu>
+        </ul>
         {this.state.isExpanded && (
           <div className="mobile-menu">
             <ul>
@@ -78,9 +78,15 @@ function TopNav(props) {
   const renderAnnonMenus = () => {
     return (
       <Menu onClick={handleMenuClick} mode="horizontal">
-        <Menu.Item key="mlb">NLB</Menu.Item>
-        <Menu.Item key="nba">NBA</Menu.Item>
-        <Menu.Item key="nfl">NFL</Menu.Item>
+        <Menu.Item key="mlb" style={{ fontWeight: '700' }}>
+          MLB
+        </Menu.Item>
+        <Menu.Item key="nba" style={{ fontWeight: '700' }}>
+          NBA
+        </Menu.Item>
+        <Menu.Item key="nfl" style={{ fontWeight: '700' }}>
+          NFL
+        </Menu.Item>
       </Menu>
     );
   };
