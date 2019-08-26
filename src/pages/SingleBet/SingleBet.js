@@ -22,7 +22,7 @@ export default function SingleBetPage() {
       <PageContent className="singleBet">
         <Title level={2}>Single Game Bet</Title>
         <div className="singleBet__form-container">
-          <SingleBetForm />
+          <SingleBetForm betForm="single"/>
         </div>
       </PageContent>
     </Page>

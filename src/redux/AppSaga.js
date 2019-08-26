@@ -1,5 +1,5 @@
 import { put, all, takeLatest } from 'redux-saga/effects';
-// import history from '@utils/history';
+import history from '@utils/history';
 import AppActions from './AppRedux';
 // import logger from '@utils/logger';
 import { AppTypes } from './AppRedux';
@@ -11,15 +11,18 @@ export function* startup() {
     "betTypeMenu": [
       {
         "id": 1,
-        "name": "Money Line"
+        "name": "Money Line",
+        "key": "ml"
       },
       {
         "id": 2,
-        "name": "Spread"
+        "name": "Spread",
+        "key": "sd"
       },
       {
         "id": 3,
-        "name": "Over/Under"
+        "name": "Over/Under",
+        "key": "ou"
       }
     ],
     "sportMenu": [
@@ -77,8 +80,20 @@ export function* startup() {
   yield put(AppActions.setLoaded(true));
 }
 
+export function* addBets() {
+  const { location } = history;
+  // TODO: no hard code for route name
+  if (location.pathname === '/my-bet-tracker' || location.pathname === '/prop-bet' || location.pathname === '/parlay') {
+    history.push('/');
+  }
+  yield true;
+}
+
 export default function* root() {
   yield all([
-    takeLatest(AppTypes.STARTUP, startup)
+    takeLatest(AppTypes.STARTUP, startup),
+    takeLatest(AppTypes.ADD_SINGLE_BET, addBets),
+    takeLatest(AppTypes.ADD_PROP_BET, addBets),
+    takeLatest(AppTypes.ADD_PARLAY_BET, addBets)
   ]);
 }

@@ -45,6 +45,21 @@ function createApi() {
       return createResult({
         available: true
       });
+    },
+    addSingleBet: async () => {
+      return createResult({
+        success: true
+      });
+    },
+    addPropBet: async () => {
+      return createResult({
+        success: true
+      });
+    },
+    addParlayBet: async () => {
+      return createResult({
+        success: true
+      });
     }
   };
 }

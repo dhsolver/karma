@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Row, Col, Divider } from 'antd';
 import { TextInput, SelectMenu, DateInput } from '@components/form';
+import { Button } from '@components/Button';
 import API from '@utils/api';
 
 import validationSchema from './schema';
-import AuthActions from '@redux/AuthRedux';
+import AppActions from '@redux/AppRedux';
 import { AppSelectors } from '@redux/AppRedux';
 
 class ParlayBetForm extends React.Component {
@@ -15,91 +16,58 @@ class ParlayBetForm extends React.Component {
     onSubmit: PropTypes.func
   };
 
-  handleSubmit = async (values, actions) => {
-    console.log('inside handleSubmit');
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      parlayBetList: []
+    }
+  }
 
-  renderForm = ({ isValid, isSubmitting }) => {
-    const { initialData } = this.props;
-    return (
-      <Form>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Field
-              component={TextInput}
-              name="moneyLine"
-              type="text"
-              label="Money Line"
-            />
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Field
-              component={SelectMenu}
-              name="sport"
-              label="Sport"
-              options={initialData['sportMenu']}
-            />
-          </Col>
-          <Col span={12}>
-            <Field component={DateInput} name="date" label="Date" />
-          </Col>
-        </Row>
-        <Row gutter={16} type="flex" justify="center" align="middle">
-          <Col span={12}>
-            <Field
-              component={SelectMenu}
-              name="teamOne"
-              label="Team 1"
-              options={initialData['teamMenu']}
-            />
-          </Col>
-          <Col span={12}>
-            <Field
-              component={SelectMenu}
-              name="teamTwo"
-              label="Team 2"
-              options={initialData['teamMenu']}
-            />
-          </Col>
-        </Row>
-        <Row gutter={16}>
-            <Col span={12}>
-              <Field
-                component={TextInput}
-                name="odds"
-                type="text"
-                label="Odds"
-              />
-            </Col>
-        </Row>
-        <Divider />
-      </Form>
-    );
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.appData !== this.props.appData) {
+      if ('parlayBet' in nextProps.appData && nextProps.appData.parlayBet.length) {
+        this.setState({
+          parlayBetList: nextProps.appData.parlayBet
+        });
+      }
+    }
+  }
+
+  handleSubmit = async () => {
+    console.log('inside handleSubmit');
+    const { parlayBetList } = this.state;
+    const { onSubmit, addSingleInParlay, betForm } = this.props;
+
+    try {
+      const { result } = await API.addParlayBet(parlayBetList);
+      if (result.success) {
+        onSubmit(parlayBetList);
+      }
+    } catch (err) {
+      /*
+      const errors = {
+        password: 'Password is wrong'
+      };
+      */
+    }
   };
 
   render() {
     return (
-      <Formik
-        initialValues={{
-          sport: 'NFL',
-          date: new Date()
-        }}
-        onSubmit={this.handleSubmit}
-        validationSchema={validationSchema}
-        render={this.renderForm}
-      />
+      <div>
+        <Button type="secondary" size="large" block outline>Add a Bet</Button>
+        <Button type="secondary" size="large" onClick={this.handleSubmit} block>Submit Parlay</Button>
+      </div>
     );
   }
 }
 
 const mapStatesToProps = state => ({
-  initialData: AppSelectors.selectData(state)
+  appData: AppSelectors.selectData(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: token => dispatch(AuthActions.setLoggedIn(token))
+  onSubmit: parlayBetList => dispatch(AppActions.addParlayBet(parlayBetList))
 });
 
 export default connect(

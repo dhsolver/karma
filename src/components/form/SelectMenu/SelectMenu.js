@@ -14,15 +14,25 @@ function SelectMenu(props) {
   const isValid = !error && touched;
 
   const { name, onChange, value, onBlur } = field;
-  const { options, label } = restProps;
+  const { options, label, handleChange } = restProps;
 
   const children = [];
   // const options_test = ["Money Line", "Spread", "Over/Under"];
   options.forEach(option => {
-    children.push(<Option key={option.id}>{option.name}</Option>);
+    children.push(<Option key={option.id} value={option.id}>{option.name}</Option>);
   });
+  console.log('Select Props: ',props);
+
+  const handleChangeLocal = (value) => {
+    console.log("inside handleChangeLocal :", value);
+    form.setFieldValue(name, value);
+    if (handleChange) {
+      handleChange(value);
+    }
+  };
 
   return (
+    
     <Form.Item
       label={label}
       validateStatus={hasError ? 'error' : undefined}
@@ -31,12 +41,13 @@ function SelectMenu(props) {
       colon={false}
     >
       <Select
-        labelInValue
         name={name}
         style={{ width: '100%' }}
         placeholder="Please select"
-        defaultValue={value ? { key: value } : undefined}
-        onChange={onChange}
+        // defaultValue={value ? { key: value } : undefined}
+        // onChange={onChange}
+        onChange={handleChangeLocal}
+        onBlur={()=> form.setFieldTouched(name, true)}
         {...restProps}
       >
         {children}
