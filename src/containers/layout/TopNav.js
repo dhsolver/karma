@@ -116,8 +116,11 @@ function TopNav(props) {
 
   const renderSecondaryNav = () => {
     return (
-      <div className="page-header">
+      <div className="page-header secondary">
         <Logo />
+        <Button variant="cta" size="small">
+          Sign up
+        </Button>
       </div>
     );
   };
@@ -132,7 +135,7 @@ function TopNav(props) {
         <Logo />
         {renderAnnonMenus()}
       </div>
-      <div className="menu-blocks">{renderUserMenus()}</div>
+      <div className="menu-blocks">{isLoggedIn && renderUserMenus()}</div>
     </div>
   );
 }
