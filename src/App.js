@@ -6,6 +6,7 @@ import { Spin } from 'antd';
 import Login from '@pages/Login';
 import Home from '@pages/Home';
 import Account from '@pages/Account';
+import LiveOdds from '@pages/LiveOdds';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
 import { ButtonDemo } from '@components/Button';
@@ -22,6 +23,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       }
     />
   );
+};
+
+PrivateRoute.propTypes = {
+  component: PropTypes.any
 };
 
 class App extends Component {
@@ -44,6 +49,7 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path="/home" component={Home} />
+        <Route exact path="/nfl" component={LiveOdds} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/btn-demo" component={ButtonDemo} />
         <PrivateRoute
