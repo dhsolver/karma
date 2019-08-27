@@ -7,6 +7,12 @@
   color: @black;
   position: relative;
   box-shadow: 1px 4px 10px lighten(@black, 40%);
+
+
+  @media only screen and (max-width: 575px){
+    height: 290px;
+  }
+
   &-header {
     background-color: @primary-color;
     height: 60px;
@@ -22,6 +28,9 @@
       font-weight: 500;
       margin-top: 30px;
       margin-bottom: 0;
+      @media only screen and (max-width: 575px){
+        margin-top: 0;
+      }
     }
     sup {
       top: -1em;

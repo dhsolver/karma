@@ -1,23 +1,75 @@
 @import '../../styles/variables.less';
 .feature-card {
   padding-top: 70px;
-  padding: 70px 140px;
+  padding: 70px 140px 0 140px;
   position: relative;
+  display: flex;
+  align-items: center;
+  height: max-content;
+  @media only screen and (max-width: 1426px){
+    padding: 50px 50px 0 50px;
+  }
+  @media only screen and (max-width: 1248px){
+    padding: 40px 50px 0 50px;
+  }
+  @media only screen and (max-width: 900px){
+    padding: 20px 0 0 0;
+    flex-direction: column;
+  }
   .ant-typography {
     color: black;
+    @media only screen and (max-width: 900px){
+      font-size: 13px;
+      color: #6A6969;
+    }
   }
   h1.ant-typography {
     font-size: 36px;
     font-weight: 500;
+    @media only screen and (max-width: 900px){
+      font-size: 26px;
+      font-weight: 300;
+      color: @black;
+    }
   }
   &-content {
     display: inline-block;
-    width: 50%;
+    width: 48%;
+    max-width: 600px;
     font-size: 16px;
     font-weight: 500;
+    height: max-content;
+
+    
+    @media only screen and (max-width: 994px) {
+      width: 50%;
+    }
+    
+    @media only screen and (max-width: 900px) {
+      text-align: center;
+      min-width: 360px;
+      width: 75%;
+  }
+    &>button{
+      width: 60%;
+      margin-top: 20px;
+      min-width: 220px;
+      @media only screen and (max-width: 900px){
+        width: auto;
+        margin: 30px auto;
+      }
+  }
+    
   }
   &-picture {
     display: inline-block;
     width: 50%;
+    @media only screen and (max-width: 1050px){
+      transform: scale(0.87);
+      transform-origin: 50% bottom;
+    }
+    @media only screen and (max-width: 900px){
+      transform: scale(1);
+    }
   }
 }

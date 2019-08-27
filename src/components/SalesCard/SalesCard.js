@@ -2,16 +2,24 @@ import React from 'react';
 import './SalesCard.less';
 import { Typography, Row } from 'antd';
 import { CustomButton } from '@components/CustomButton';
-
+import windowSize from 'react-window-size';
 const { Text, Title } = Typography;
 
-const SalesCard = ({ title, dollar, cent, timePeriod, ctaText, disabled }) => {
+const SalesCard = ({
+  title,
+  dollar,
+  cent,
+  timePeriod,
+  ctaText,
+  disabled,
+  windowWidth
+}) => {
   return (
     <div
       className="sales-card"
       style={{
-        transform: !disabled && 'scale(1.1)',
-        zIndex: !disabled && '99',
+        transform: !disabled && windowWidth > 900 && 'scale(1.1)',
+        zIndex: !disabled && windowWidth > 900 && '99',
         filter: disabled && 'grayscale(1)'
       }}
     >
@@ -55,4 +63,4 @@ const SalesCard = ({ title, dollar, cent, timePeriod, ctaText, disabled }) => {
   );
 };
 
-export default SalesCard;
+export default windowSize(SalesCard);

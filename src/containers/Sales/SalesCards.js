@@ -3,12 +3,7 @@ import { Row } from 'antd';
 import { SalesCard } from '@components/SalesCard';
 const SalesCards = () => {
   return (
-    <Row
-      type="flex"
-      justify="center"
-      align="middle"
-      style={{ marginBottom: '100px', order: '3' }}
-    >
+    <Row className="sales-cards" type="flex" justify="center" align="middle">
       <SalesCard
         title="Regular Monthly"
         dollar="49"
