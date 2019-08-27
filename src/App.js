@@ -6,6 +6,9 @@ import { Spin } from 'antd';
 import Login from '@pages/Login';
 import Home from '@pages/Home';
 import Account from '@pages/Account';
+import WhereToBet from '@pages/WhereToBet';
+import BetCalculator from '@pages/BetCalculator';
+import MyBetTracker from '@pages/MyBetTracker';
 import LiveOdds from '@pages/LiveOdds';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
@@ -52,6 +55,9 @@ class App extends Component {
         <Route exact path="/nfl" component={LiveOdds} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/btn-demo" component={ButtonDemo} />
+        <Route exact path="/where-to-bet" component={WhereToBet} />
+        <Route exact path="/bet-calculator" component={BetCalculator} />
+        <Route exact path="/my-bet-tracker" component={MyBetTracker} />
         <PrivateRoute
           exact
           path="/account"

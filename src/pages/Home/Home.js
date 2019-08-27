@@ -1,6 +1,7 @@
 import React from 'react';
+import { Menu } from 'antd';
+import { Page, PageContent, TopNav, SecondNav } from '@containers/Layout';
 import { isMobile } from 'react-device-detect';
-import { Page, PageContent, TopNav } from '@containers/Layout';
 import { ArticlesList } from '@containers/articles';
 import './Home.less';
 
@@ -9,6 +10,12 @@ export default function HomePage() {
   return (
     <Page>
       <TopNav />
+      <SecondNav>
+        <Menu mode="horizontal">
+          <Menu.Item>Enter a bet</Menu.Item>
+          <Menu.Item>af</Menu.Item>
+        </Menu>
+      </SecondNav>
       <PageContent className="home">
         <div className={`${mainClassName}__articles`}>
           <ArticlesList title="Latest" />
