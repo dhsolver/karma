@@ -1,11 +1,12 @@
 import React from 'react';
-import { Typography, Menu } from 'antd';
+import { Menu } from 'antd';
 import { Page, PageContent, TopNav, SecondNav } from '@containers/Layout';
+import { isMobile } from 'react-device-detect';
+import { ArticlesList } from '@containers/articles';
 import './Home.less';
 
-const { Title } = Typography;
-
 export default function HomePage() {
+  const mainClassName = 'home';
   return (
     <Page>
       <TopNav />
@@ -16,7 +17,10 @@ export default function HomePage() {
         </Menu>
       </SecondNav>
       <PageContent className="home">
-        <Title level={2}>Home</Title>
+        <div className={`${mainClassName}__articles`}>
+          <ArticlesList title="Latest" />
+        </div>
+        {isMobile && <div className={`${mainClassName}__live-odds`}></div>}
       </PageContent>
     </Page>
   );
