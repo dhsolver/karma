@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Row, Col, Divider } from 'antd';
 import { TextInput, SelectMenu, DateInput } from '@components/form';
-import { Button } from '@components/Button';
+import { Button } from '@components/common/Button';
 import API from '@utils/api';
 
 import validationSchema from './schema';
@@ -20,12 +20,15 @@ class ParlayBetForm extends React.Component {
     super(props);
     this.state = {
       parlayBetList: []
-    }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.appData !== this.props.appData) {
-      if ('parlayBet' in nextProps.appData && nextProps.appData.parlayBet.length) {
+      if (
+        'parlayBet' in nextProps.appData &&
+        nextProps.appData.parlayBet.length
+      ) {
         this.setState({
           parlayBetList: nextProps.appData.parlayBet
         });
@@ -55,8 +58,12 @@ class ParlayBetForm extends React.Component {
   render() {
     return (
       <div>
-        <Button type="secondary" size="large" block outline>Add a Bet</Button>
-        <Button type="secondary" size="large" onClick={this.handleSubmit} block>Submit Parlay</Button>
+        <Button type="secondary" size="large" block outline>
+          Add a Bet
+        </Button>
+        <Button type="secondary" size="large" onClick={this.handleSubmit} block>
+          Submit Parlay
+        </Button>
       </div>
     );
   }

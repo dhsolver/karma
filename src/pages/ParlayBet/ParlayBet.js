@@ -11,7 +11,7 @@ import SingleBetForm from '@containers/MyBetTracker/SingleBetForm';
 import ParlayBetForm from '@containers/MyBetTracker/ParlayBetForm/ParlayBetForm';
 import ParlayBetList from '@containers/MyBetTracker/ParlayBetForm/ParlayBetList';
 import ParlayBetAmount from '@containers/MyBetTracker/ParlayBetForm/ParlayBetAmount';
-import { Button } from '@components/Button';
+import { Button } from '@components/common/Button';
 import './ParlayBet.less';
 
 const { Title } = Typography;

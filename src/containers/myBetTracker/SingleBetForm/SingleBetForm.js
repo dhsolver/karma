@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Row, Col, Divider } from 'antd';
 import { TextInput, SelectMenu, DateInput } from '@components/form';
-import { Button } from '@components/Button';
+import { Button } from '@components/common/Button';
 import API from '@utils/api';
 
 import validationSchema from './schema';
@@ -12,7 +12,6 @@ import AppActions from '@redux/AppRedux';
 import { AppSelectors } from '@redux/AppRedux';
 
 import { BET_TYPE } from '@appConfig';
-import { isStatement } from '@babel/types';
 
 import './SingleBetForm.less';
 
@@ -29,16 +28,15 @@ class SingleBetForm extends React.Component {
   };
 
   componentDidUpdate() {
-    console.log("inside componentDidUpdate", this.props);
+    console.log('inside componentDidUpdate', this.props);
   }
 
-
   setBetType = value => {
-    console.log("inside setbettype ", value);
+    console.log('inside setbettype ', value);
     const { appData } = this.props;
     const { betTypeMenu } = appData;
     let betType = '';
-    betTypeMenu.forEach((betTypeData) => {
+    betTypeMenu.forEach(betTypeData => {
       if (betTypeData.id === value) {
         betType = betTypeData.name;
       }
@@ -56,14 +54,14 @@ class SingleBetForm extends React.Component {
     setSubmitting(true);
 
     try {
-      if (betForm === "single") {
+      if (betForm === 'single') {
         const { result } = await API.addSingleBet(values);
         setSubmitting(false);
         if (result.success) {
           onSubmit(values);
           // resetForm({});
         }
-      } else if (betForm === "parlay") {
+      } else if (betForm === 'parlay') {
         addSingleInParlay(values);
         // resetForm({});
       }
@@ -205,7 +203,9 @@ class SingleBetForm extends React.Component {
             </Button>
           </Col>
           <Col span={12}>
-            <Button type="secondary" size="large" block outline>Cancel</Button>
+            <Button type="secondary" size="large" block outline>
+              Cancel
+            </Button>
           </Col>
         </Row>
       </Form>
@@ -237,10 +237,10 @@ class SingleBetForm extends React.Component {
 }
 
 const mapStatesToProps = state => {
-  return ({
+  return {
     appData: AppSelectors.selectData(state)
-  });
-} 
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => dispatch(AppActions.addSingleBet(values)),

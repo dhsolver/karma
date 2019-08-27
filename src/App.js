@@ -60,7 +60,6 @@ class App extends Component {
         <Route exact path="/btn-demo" component={ButtonDemo} />
         <Route exact path="/where-to-bet" component={WhereToBet} />
         <Route exact path="/bet-calculator" component={BetCalculator} />
-        <Route exact path="/my-bet-tracker" component={MyBetTracker} />
         <PrivateRoute
           exact
           path="/account"
