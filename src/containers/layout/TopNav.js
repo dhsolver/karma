@@ -6,7 +6,7 @@ import Logo from '@components/Logo';
 import { AuthSelectors } from '@redux/AuthRedux';
 import history from '@utils/history';
 import windowSize from 'react-window-size';
-import { Button } from '@components/Button';
+import { Button } from '@components/common/Button';
 
 export const NAV_TYPES = {
   PRIMARY: 'primary',

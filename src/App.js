@@ -12,7 +12,7 @@ import MyBetTracker from '@pages/MyBetTracker';
 import LiveOdds from '@pages/LiveOdds';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
-import { ButtonDemo } from '@components/Button';
+import { ButtonDemo } from '@components/common/Button';
 
 import '@styles/main.less';
 
