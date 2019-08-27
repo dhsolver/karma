@@ -15,7 +15,10 @@ export default function Logo(props) {
         history.push('/');
       }}
     >
-      <Text>BET KARMA</Text>
+      <Text>
+        <span>BET</span>
+        &nbsp;KARMA
+      </Text>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import auth from './fixtures/auth';
 import articles from './fixtures/articles';
-import { transformFromAPI } from '@models/Article';
+import schedules from './fixtures/schedules';
+import { transformFromAPI as convertArticle } from '@models/Article';
+import { transformFromAPI as convertGame } from '@models/Game';
 
 function createError(status) {
   return {
@@ -57,7 +59,10 @@ function createApi() {
       });
     },
     getArticles: async () => {
-      return articles.map(transformFromAPI);
+      return articles.map(convertArticle);
+    },
+    getGames: async () => {
+      return schedules.map(convertGame);
     }
   };
 }

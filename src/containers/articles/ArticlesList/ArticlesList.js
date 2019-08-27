@@ -12,10 +12,10 @@ import './ArticlesList.less';
 const { Title } = Typography;
 
 function ArticlesList(props) {
-  const { loading, articles, laodArticles, className, title, columns } = props;
+  const { loading, articles, loadArticles, className, title, columns } = props;
 
   useEffect(() => {
-    laodArticles();
+    loadArticles();
   }, []);
 
   if (loading) {
@@ -50,19 +50,10 @@ function ArticlesList(props) {
   );
 }
 
-const mapStatesToProps = state => ({
-  loading: ArticleSelectors.selectLoading(state),
-  articles: ArticleSelectors.selectArticles(state)
-});
-
-const mapDispatchToProps = dispatch => ({
-  laodArticles: () => dispatch(ArticleActions.requestArticlesList())
-});
-
 ArticlesList.propTypes = {
   articles: PropTypes.array,
   loading: PropTypes.bool,
-  laodArticles: PropTypes.func,
+  loadArticles: PropTypes.func,
   className: PropTypes.string,
   title: PropTypes.string,
   columns: PropTypes.number
@@ -71,6 +62,15 @@ ArticlesList.propTypes = {
 ArticlesList.defaultProps = {
   columns: 2
 };
+
+const mapStatesToProps = state => ({
+  loading: ArticleSelectors.selectLoading(state),
+  articles: ArticleSelectors.selectArticles(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+  loadArticles: () => dispatch(ArticleActions.requestArticlesList())
+});
 
 export default connect(
   mapStatesToProps,
