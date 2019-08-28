@@ -1,12 +1,8 @@
 import React from 'react';
 import { Menu } from 'antd';
 import { Page, PageContent, TopNav, SecondNav } from '@containers/Layout';
-import { isMobile } from 'react-device-detect';
-import { ArticlesList } from '@containers/articles';
-import './Home.less';
 
-export default function HomePage(props) {
-  const mainClassName = 'home';
+export default function EnterABet(props) {
   const { history } = props;
   return (
     <Page>
@@ -15,10 +11,7 @@ export default function HomePage(props) {
         <Menu.Item key="enter-a-bet">Enter a bet</Menu.Item>
       </SecondNav>
       <PageContent className="home">
-        <div className={`${mainClassName}__articles`}>
-          <ArticlesList title="Latest" />
-        </div>
-        {isMobile && <div className={`${mainClassName}__live-odds`}></div>}
+        <h1>Enter a bet</h1>
       </PageContent>
     </Page>
   );
