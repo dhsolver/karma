@@ -21,7 +21,6 @@ const ButtonDemo = () => {
         3 Active Bets
       </Button>
       <Button icon="injury">Injury</Button>
-      <Button icon="nav-arrow-left">Injury</Button>
       <h3>Different types</h3>
       <Button type="primary">Primary</Button>
       <Button type="secondary">Secondary</Button>
