@@ -18,6 +18,7 @@ import { AuthSelectors } from '@redux/AuthRedux';
 import { ButtonDemo } from '@components/common/Button';
 
 import '@styles/main.less';
+import Sales from '@pages/Sales';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isAuthenticated } = rest;
@@ -57,6 +58,7 @@ class App extends Component {
         <Route exact path="/home" component={Home} />
         <Route exact path="/nfl" component={LiveOdds} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/sales" component={Sales} />
         <Route exact path="/btn-demo" component={ButtonDemo} />
         <Route exact path="/where-to-bet" component={WhereToBet} />
         <Route exact path="/bet-calculator" component={BetCalculator} />

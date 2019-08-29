@@ -5,6 +5,7 @@ function createApi() {
     baseURL: process.env.BACKEND_URL,
     responseType: 'json'
   });
+  
 
   return {
     loginWithEmail: async ({ email, password }) => {

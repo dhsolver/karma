@@ -1,0 +1,38 @@
+@import '../../styles/variables.less';
+
+
+.sales-cards{
+    margin-bottom: 100px;
+    @media only screen and (max-width: 900px){
+        flex-direction: column;
+        margin-bottom: 40px;
+    }
+    &>div:nth-child(2){
+        @media only screen and (max-width: 900px){
+            order: -1;
+            margin-bottom: 30px;
+        }
+    }
+    &>div:nth-child(3){
+        @media only screen and (max-width: 900px){
+            display: none;
+        }
+    }
+}
+
+.feature-cards{
+    &>div{
+        justify-content: space-between;
+        background: @white;
+    }
+
+    &>:nth-child(2n){
+        flex-direction: row-reverse;
+        background: #f0f0f0;
+        @media only screen and (max-width: 900px){
+            flex-direction: column;
+        }
+    }
+
+
+}
