@@ -1,97 +1,129 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Row, Col, List, Typography, Divider } from 'antd';
-import { Button } from '@components/Button';
+import { Button } from '@components/common/Button';
 import './ParlayBetForm.less';
 
+import AppActions from '@redux/AppRedux';
 import { AppSelectors } from '@redux/AppRedux';
+
+import { BET_TYPE } from '@appConfig';
 
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    "bet": "Bet 1",
-    "betType": "Money Line",
-    "sport": "MLB",
-    "date": "06/06/19",
-    "matchup": "HOU Over SEA",
-    "odds": "+119"
-  },
-  {
-    "bet": "Bet 2",
-    "betType": "Over/Under",
-    "sport": "MLB",
-    "date": "06/06/19",
-    "matchup": "BOS at TB",
-    "overUnderFlag": "Over",
-    "overUnderNumber": "8.5",
-    "odds": "-144"
-  },
-  {
-    "bet": "Bet 3",
-    "betType": "Spread",
-    "sport": "NBA",
-    "date": "06/06/19",
-    "matchup": "TOR over GS",
-    "odds": "-4.5"
-  }
-]
-
 class ParlayBetList extends React.Component {
+  static propTypes = {
+    appData: PropTypes.object,
+    editSingleInParlay: PropTypes.func,
+    removeSingleInParlay: PropTypes.func
+  };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      dataSource: []
+  state = {
+    dataSource: []
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    if (
+      'parlayBet' in props.appData &&
+      props.appData.parlayBet !== state.dataSource
+    ) {
+      return {
+        dataSource: props.appData.parlayBet
+      };
     }
+    return null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.appData !== this.props.appData) {
-      if ('parlayBet' in nextProps.appData && nextProps.appData.parlayBet.length) {
-        this.setState({
-          dataSource: nextProps.appData.parlayBet
-        });
-      }
-    }
-  }
+  editBet = betItem => {
+    this.props.editSingleInParlay(betItem);
+  };
 
-  renderList = (item) => {
+  removeBet = betItem => {
+    this.props.removeSingleInParlay(betItem.id);
+  };
+
+  renderList = item => {
     return (
       <List.Item>
-          <Row>
-            <Col span={16}>
-              <Title level={4} style={{color: "#FD6B3A"}}>{item.bet}</Title>
-              <div><Text>{item.betType}</Text></div>
-              <div><Text>{item.sport} : </Text></div>
-              <div><Text>{item.matchup} {item.odds}</Text></div>
-            </Col>
-            <Col span={8}>
-              <Row gutter={8} type="flex">
-                <Col span={16}>
-                  <Button type="link" size="very-small" >EDIT</Button>
-                </Col>
-                <Col span={8} className="closeBtnCol">
-                  <Button className="closeBtn" icon="close" type="link" size="very-small" shape="round" outline/>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+        <Row>
+          <Col span={16}>
+            <Title level={4} style={{ color: '#FD6B3A' }}>
+              Bet {item.betNumber}
+            </Title>
+            <div>
+              <Text>{item.betType}</Text>
+            </div>
+            <div>
+              <Text>
+                {item.sport} :{' '}
+                {moment.isMoment(item.date)
+                  ? item.date.format('DD/MM/YYYY')
+                  : moment(item.date, 'DD/MM/YYYY')}
+              </Text>
+            </div>
+            {item.betType !== BET_TYPE['ou'] && (
+              <div>
+                <Text>
+                  {item.teamOne} over {item.teamTwo}{' '}
+                  {item.betType === BET_TYPE['ml'] ? item.odds : item.spread}
+                </Text>
+              </div>
+            )}
+            {item.betType === BET_TYPE['ou'] && (
+              <>
+                <div>
+                  <Text>{item.matchup}</Text>
+                </div>
+                <div>
+                  <Text>
+                    {item.overUnderFlag} {item.overUnderNumber} {item.odds}
+                  </Text>
+                </div>
+              </>
+            )}
+          </Col>
+          <Col span={8}>
+            <Row gutter={8} type="flex">
+              <Col span={16}>
+                <Button
+                  type="link"
+                  size="very-small"
+                  onClick={this.editBet.bind(this, item)}
+                >
+                  EDIT
+                </Button>
+              </Col>
+              <Col span={8} className="closeBtnCol">
+                <Button
+                  className="closeBtn"
+                  icon="close"
+                  type="link"
+                  size="very-small"
+                  shape="round"
+                  onClick={this.removeBet.bind(this, item)}
+                  outline
+                />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </List.Item>
     );
-  }
+  };
 
   render() {
     const { dataSource } = this.state;
     if (dataSource.length) {
       return (
         <div>
-            <List
-              dataSource={dataSource}
-              renderItem={this.renderList}
-              className="parlayBet__list"
-            />
-            <Divider />
+          <List
+            dataSource={dataSource}
+            renderItem={this.renderList}
+            className="parlayBet__list"
+          />
+          <Divider />
         </div>
       );
     } else {
@@ -100,14 +132,18 @@ class ParlayBetList extends React.Component {
   }
 }
 
-const mapStatesToProps = state => {
-  console.log("state in mapstatetoprops :", state);
-  return ({
-    appData: AppSelectors.selectData(state)
-  });
-};
+const mapStatesToProps = state => ({
+  appData: AppSelectors.selectData(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+  editSingleInParlay: singleBet =>
+    dispatch(AppActions.editSingleInParlay(singleBet)),
+  removeSingleInParlay: betId =>
+    dispatch(AppActions.removeSingleInParlay(betId))
+});
 
 export default connect(
   mapStatesToProps,
-  null
+  mapDispatchToProps
 )(ParlayBetList);

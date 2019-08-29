@@ -92,6 +92,7 @@
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.1",
+    "react-window-size": "^1.2.2",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.3",
     "reduxsauce": "^1.1.0",

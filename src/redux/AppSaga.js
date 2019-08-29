@@ -3,69 +3,70 @@ import history from '@utils/history';
 import AppActions from './AppRedux';
 // import logger from '@utils/logger';
 import AuthActions from './AuthRedux';
+import AppTypes from './AppRedux';
 
 export function* startup() {
   const token = localStorage.getItem('token');
   const data = {
-    "betTypeMenu": [
+    betTypeMenu: [
       {
-        "id": 1,
-        "name": "Money Line",
-        "key": "ml"
+        id: 1,
+        name: 'Money Line',
+        key: 'ml'
       },
       {
-        "id": 2,
-        "name": "Spread",
-        "key": "sd"
+        id: 2,
+        name: 'Spread',
+        key: 'sd'
       },
       {
-        "id": 3,
-        "name": "Over/Under",
-        "key": "ou"
+        id: 3,
+        name: 'Over / Under',
+        key: 'ou'
       }
     ],
-    "sportMenu": [
+    sportMenu: [
       {
-        "id": 1,
-        "name": "NFL"
+        id: 1,
+        name: 'NFL'
       }
     ],
-    "teamMenu": [
+    teamMenu: [
       {
-        "id": 1,
-        "name": "SEA"
+        id: 1,
+        name: 'SEA'
       },
       {
-        "id": 2,
-        "name": "ARI"
+        id: 2,
+        name: 'ARI'
       }
     ],
-    "matchupMenu": [
+    matchupMenu: [
       {
-        "id": 1,
-        "name": "HOU at SEA"
+        id: 1,
+        name: 'HOU at SEA'
       }
     ],
-    "overUnderMenu": [
+    overUnderMenu: [
       {
-        "id": 1,
-        "name": "Over"
+        id: 1,
+        name: 'Over'
       },
       {
-        "id": 2,
-        "name": "Under"
+        id: 2,
+        name: 'Under'
       }
     ],
-    "playerMenu": [
+    playerMenu: [
       {
-        "id": 1,
-        "name": "Alex Bregman"
+        id: 1,
+        name: 'Alex Bregman'
       }
     ],
-    "statMenu": [
+    statMenu: [
       {
-        "id": 1,
-        "name": "Hits"
+        id: 1,
+        name: 'Hits'
       }
     ]
   };
@@ -74,7 +75,7 @@ export function* startup() {
   }
 
   // do initial loading
-  
+
   yield put(AppActions.setAppData(data));
   yield put(AppActions.setLoaded(true));
 }
@@ -82,7 +83,11 @@ export function* startup() {
 export function* addBets() {
   const { location } = history;
   // TODO: no hard code for route name
-  if (location.pathname === '/my-bet-tracker' || location.pathname === '/prop-bet' || location.pathname === '/parlay') {
+  if (
+    location.pathname === '/my-bet-tracker' ||
+    location.pathname === '/prop-bet' ||
+    location.pathname === '/parlay'
+  ) {
     history.push('/');
   }
   yield true;

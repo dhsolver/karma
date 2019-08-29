@@ -9,9 +9,12 @@ import Account from '@pages/Account';
 import SingleBet from '@pages/SingleBet';
 import PropBet from '@pages/PropBet';
 import ParlayBet from '@pages/ParlayBet';
+import WhereToBet from '@pages/WhereToBet';
+import BetCalculator from '@pages/BetCalculator';
+import LiveOdds from '@pages/LiveOdds';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
-import { ButtonDemo } from '@components/Button';
+import { ButtonDemo } from '@components/common/Button';
 
 import '@styles/main.less';
 
@@ -25,6 +28,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       }
     />
   );
+};
+
+PrivateRoute.propTypes = {
+  component: PropTypes.any
 };
 
 class App extends Component {
@@ -47,8 +54,11 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path="/home" component={Home} />
+        <Route exact path="/nfl" component={LiveOdds} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/btn-demo" component={ButtonDemo} />
+        <Route exact path="/where-to-bet" component={WhereToBet} />
+        <Route exact path="/bet-calculator" component={BetCalculator} />
         <PrivateRoute
           exact
           path="/account"

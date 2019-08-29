@@ -8,7 +8,11 @@ const { Types, Creators } = createActions({
   addSingleBet: ['data'],
   addPropBet: ['data'],
   addSingleInParlay: ['data'],
-  addParlayBet: ['data']
+  editSingleInParlay: ['data'],
+  addParlayBet: null,
+  updateSingleInParlay: ['data'],
+  removeSingleInParlay: ['betId'],
+  addABetClicked: null
 });
 
 export const AppTypes = Types;
@@ -40,60 +44,107 @@ export const setLoaded = (state, { loaded }) => ({
 });
 
 export const setAppData = (state, action) => {
-  console.log("inside setAppData :", state, action);
   switch (action.type) {
-    case "ADD_SINGLE_BET":
-      return ({
+    case 'ADD_SINGLE_BET':
+      return {
         ...state,
         data: {
           ...state.data,
           singleBet: action.data
         }
-      });
-      break;
-    case "ADD_PROP_BET":
-        return ({
-          ...state,
-          data: {
-            ...state.data,
-            propBet: action.data
-          }
-        });
-        break;
-    case "ADD_SINGLE_IN_PARLAY":
-        let parlayBetArr = [];
-        if ('parlayBet' in state.data) {
-          parlayBetArr = [...state.data.parlayBet];
+      };
+    case 'ADD_PROP_BET':
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          propBet: action.data
         }
-        parlayBetArr.push(action.data);
-        return ({
-          ...state,
-          data: {
-            ...state.data,
-            parlayBet: parlayBetArr
-          }
-        });
-        break;
-    case "ADD_PARLAY_BET":
-        return ({
-          ...state,
-          data: {
-            ...state.data,
-            parlayBet: action.data
-          }
-        });
-        break;
+      };
+    case 'ADD_SINGLE_IN_PARLAY':
+      // eslint-disable-next-line no-case-declarations
+      let parlayBetArr = [];
+      if ('parlayBet' in state.data) {
+        parlayBetArr = [...state.data.parlayBet];
+      }
+      parlayBetArr.push(action.data);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          parlayBet: parlayBetArr
+        }
+      };
     default:
-      return ({
+      return {
         ...state,
         data: {
           ...state.data,
           ...action.data
         }
-      });
+      };
   }
 };
 
+export const editSingleBetInParlay = (state, action) => {
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      editSingleBet: action.data
+    }
+  };
+};
+
+export const updateSingleInParlay = (state, action) => {
+  const parlayBetList = state.data.parlayBet;
+  const parlayBetListUpdated = [];
+  parlayBetList.forEach(parlayBet => {
+    if (parlayBet.id === action.data.betId) {
+      parlayBetListUpdated.push(action.data.values);
+    } else {
+      parlayBetListUpdated.push(parlayBet);
+    }
+  });
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      parlayBet: parlayBetListUpdated,
+      editSingleBet: {}
+    }
+  };
+};
+
+export const removeSingleInParlay = (state, action) => {
+  const parlayBetList = state.data.parlayBet;
+  const parlayBetListUpdated = [];
+  let count = 1;
+  parlayBetList.forEach(parlayBet => {
+    if (parlayBet.id !== action.betId) {
+      parlayBet.betNumber = count;
+      parlayBetListUpdated.push(parlayBet);
+      count++;
+    }
+  });
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      parlayBet: parlayBetListUpdated
+    }
+  };
+};
+
+export const addABetClicked = state => {
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      editSingleBet: {}
+    }
+  };
+};
 
 /* -------- Hookup Reducers to Types -------- */
 export const reducer = createReducer(INITIAL_STATE, {
@@ -103,5 +154,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.ADD_SINGLE_BET]: setAppData,
   [Types.ADD_PROP_BET]: setAppData,
   [Types.ADD_SINGLE_IN_PARLAY]: setAppData,
-  [Types.ADD_PARLAY_BET]: setAppData
+  [Types.EDIT_SINGLE_IN_PARLAY]: editSingleBetInParlay,
+  [Types.UPDATE_SINGLE_IN_PARLAY]: updateSingleInParlay,
+  [Types.REMOVE_SINGLE_IN_PARLAY]: removeSingleInParlay,
+  [Types.ADD_A_BET_CLICKED]: addABetClicked
 });
