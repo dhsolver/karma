@@ -1,9 +1,8 @@
-export const fixtures = {
-  user: {
-    email: 'dev@betkarma.com',
-    password: '123456'
-  }
-};
+import auth from './fixtures/auth';
+import articles from './fixtures/articles';
+import schedules from './fixtures/schedules';
+import { transformFromAPI as convertArticle } from '@models/Article';
+import { transformFromAPI as convertGame } from '@models/Game';
 
 function createError(status) {
   return {
@@ -13,38 +12,57 @@ function createError(status) {
   };
 }
 
-function createResult(data) {
-  return {
-    result: data
-  };
+function createResponse(data) {
+  return data;
 }
 
 function createApi() {
   return {
     loginWithEmail: async ({ email, password }) => {
-      const { user } = fixtures;
+      const { user } = auth;
       if (user.email === email && user.password === password) {
-        return createResult({
+        return createResponse({
           authToken: 'test',
           refreshToken: 'test'
         });
       }
     },
     reigsterWithEmail: async () => {
-      return createResult({
+      return createResponse({
         authToken: 'test',
         refreshToken: 'test'
       });
     },
     checkEmailAvailability: async ({ email }) => {
-      const { user } = fixtures;
+      const { user } = auth;
       if (user.email === email) {
         throw createError(400);
       }
 
-      return createResult({
+      return createResponse({
         available: true
       });
+    },
+    addSingleBet: async () => {
+      return createResult({
+        success: true
+      });
+    },
+    addPropBet: async () => {
+      return createResult({
+        success: true
+      });
+    },
+    addParlayBet: async () => {
+      return createResult({
+        success: true
+      });
+    },
+    getArticles: async () => {
+      return articles.map(convertArticle);
+    },
+    getGames: async () => {
+      return schedules.map(convertGame);
     }
   };
 }

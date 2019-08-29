@@ -21,7 +21,9 @@ module.exports = {
           '@pages': './src/pages',
           '@redux': './src/redux',
           '@utils': './src/utils',
-          '@services': './src/services'
+          '@services': './src/services',
+          '@appConfig': './src/appConfig',
+          '@models': './src/models'
         }
       }
     ]

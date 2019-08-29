@@ -12,11 +12,6 @@
     "test": "jest",
     "analyze": "cross-env NODE_ENV=production ANALYZE=1 webpack"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "precise-commits"
-    }
-  },
   "keywords": [
     "betkarma",
     "react",
@@ -56,7 +51,6 @@
     "eslint-plugin-react": "^7.13.0",
     "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^2.4.0",
     "jest": "^24.8.0",
     "jest-environment-jsdom": "^24.8.0",
     "jest-environment-jsdom-global": "^1.2.0",
@@ -90,12 +84,15 @@
     "formik": "^1.5.7",
     "history": "^4.9.0",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-device-detect": "^1.7.5",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.1",
+    "react-window-size": "^1.2.2",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.3",
     "reduxsauce": "^1.1.0",

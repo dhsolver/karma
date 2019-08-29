@@ -1,7 +1,7 @@
 import React from 'react';
 import './SalesCard.less';
 import { Typography, Row } from 'antd';
-import { CustomButton } from '@components/CustomButton';
+import { Button } from '@components/common/Button';
 import windowSize from 'react-window-size';
 const { Text, Title } = Typography;
 
@@ -57,7 +57,7 @@ const SalesCard = ({
         align="middle"
         justify="center"
       >
-        <CustomButton type="cta" content={ctaText} />
+        <Button variant="cta">{ctaText}</Button>
       </Row>
     </div>
   );

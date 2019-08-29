@@ -1,7 +1,7 @@
 import React from 'react';
 import './FeatureCard.less';
 import { Typography, Row, Col } from 'antd';
-import { CustomButton } from '@components/CustomButton';
+import { Button } from '@components/common/Button';
 import { FeatureCardImage } from '@components/FeatureCardImage';
 import windowSize from 'react-window-size';
 
@@ -12,7 +12,7 @@ const FeatureCard = ({ title, content, index, windowWidth }) => {
       <Col className="feature-card-content">
         <Title level={1}>{title}</Title>
         <Text>{content}</Text>
-        <CustomButton type="cta" content="Start Your free Trial" />
+        <Button variant="cta">get on the list</Button>
       </Col>
       <FeatureCardImage
         name={`feature-${index}`}

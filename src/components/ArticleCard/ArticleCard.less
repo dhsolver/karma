@@ -1,0 +1,83 @@
+@import '../../styles/variables.less';
+.karma-article-card {
+  height: 402px;
+  width: 100%;
+  max-width: 371px;
+  border: 1px solid @border-color-base;
+  opacity: 0.8;
+  background-color: @background-color-base;
+  display: flex;
+  flex-direction: column;
+
+  &__banner {
+    min-height: 205px;
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  &__long-text {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  &__tool-bar {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__badge {
+    height: 23px;
+    width: 68px;
+    background-color: @orange;
+    margin-left: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__tag {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 23px;
+    width: 43px;
+    background-color: @orange;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    min-width: 371px;
+    margin: 10px;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin: auto;
+    margin-bottom: 10px;
+    height: 388px;
+    &__banner {
+      min-height: 181px;
+    }
+
+    &__content {
+      padding: 20px;
+    }
+  }
+
+  .karma-image-bg {
+    flex: 1;
+  }
+}

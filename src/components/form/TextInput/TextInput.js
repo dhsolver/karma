@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Icon } from 'antd';
 import { getIn } from 'formik';
 
 function TextInput(props) {
@@ -12,17 +12,22 @@ function TextInput(props) {
   const isValid = !error && touched;
 
   const { name, onChange, onBlur, value } = field;
+  const { label, addontype } = restProps;
+
   return (
     <Form.Item
       validateStatus={hasError ? 'error' : undefined}
       hasFeedback={isValid}
       help={(hasError && <li>{error}</li>) || (isValid && '')}
+      label={label}
+      colon={false}
     >
       <Input
         name={name}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        addonBefore={addontype ? <Icon type={addontype} /> : null}
         {...restProps}
       />
     </Form.Item>
