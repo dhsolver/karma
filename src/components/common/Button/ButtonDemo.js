@@ -13,7 +13,15 @@ const ButtonDemo = () => {
       <Button size="small">Small</Button>
       <Button size="very-small">Very-Small</Button>
       <h3>Button with icons</h3>
-      <Button icon="injury">Button with icon</Button>
+      <Button icon="link">Parlay Calculator</Button>
+      <Button icon="ticket" type="secondary">
+        3 Active Bets
+      </Button>
+      <Button icon="ticket" type="secondary" outline>
+        3 Active Bets
+      </Button>
+      <Button icon="injury">Injury</Button>
+      <Button icon="nav-arrow-left">Injury</Button>
       <h3>Different types</h3>
       <Button type="primary">Primary</Button>
       <Button type="secondary">Secondary</Button>

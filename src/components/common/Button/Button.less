@@ -49,10 +49,6 @@
       border: none;
       & > svg {
         fill: @white;
-        & > path {
-          stroke: @white;
-          fill: transparent;
-        }
       }
       &:hover, &:focus {
         background-color: lighten(@orange, 4%);
@@ -69,10 +65,6 @@
       border: none;
       & > svg {
         fill: @black;
-        & > path {
-          stroke: @black;
-          fill: transparent;
-        }
       }
       &:hover, &:focus {
         background-color: lighten(@green, 4%);
@@ -93,10 +85,10 @@
         border-color: darken(@orange, 4%);
         & > svg {
           fill: @orange;
-          & > path {
+          /* & > path {
             stroke: @orange;
             fill: transparent;
-          }
+          } */
         }
         &:hover, &:focus {
           color: @orange;
@@ -115,10 +107,10 @@
         border-color: darken(@green, 4%);
         & > svg {
           fill: @green;
-          & > path {
+          /* & > path {
             stroke: @green;
             fill: transparent;
-          }
+          } */
         }
         &:hover, &:focus {
           color: @green;
@@ -167,10 +159,10 @@
 
     & > svg {
       stroke: @border-color-base;
-      & > path {
+      /* & > path {
         stroke: @border-color-base;
         fill: transparent;
-      }
+      } */
     }
   }
 }
