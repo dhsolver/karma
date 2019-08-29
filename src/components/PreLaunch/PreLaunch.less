@@ -1,0 +1,56 @@
+@import "../../styles/variables.less";
+
+.prelaunch{
+    width: 60%;
+    max-width: 630px;
+    margin: 0 auto;
+    border: 0.5px solid fade(@white, 30%);
+    margin-bottom: 20px;
+    padding: 40px 40px 10px 40px;
+    background: fade(@black, 30%);
+
+    @media only screen and (max-width: 1005px){
+        width: 80%;
+    }
+
+    @media only screen and (max-width: 770px){
+        width: 90%;
+        padding: 30px 30px 10px 30px;
+    }
+
+    @media only screen and (max-width: 600px){
+        width: 95%;
+        padding: 25px 25px 10px 25px;
+    }
+
+    &>h2{
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 600;
+
+        @media only screen and (max-width: 600px){
+            font-size: 25px;
+        }
+    }
+    &>span{
+        text-align: center;
+        width: 60%;
+        display: block;
+        margin: 0 auto;
+        font-size: 16px;
+        font-weight: 500;
+
+        @media only screen and (max-width: 570px){
+            width: 90%;  
+            font-size: 14px;
+        }
+
+
+    }
+    &>button.ant-btn{
+        text-align: center;
+        margin: 30px auto;
+        display: block;
+        padding: 0px 45px;
+    }
+}

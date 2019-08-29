@@ -32,6 +32,12 @@
   &&-small {
     height: 31px;
     font-size: 12px;
+    @media only screen and (max-width: 900px) {
+      height: 20px;
+      font-size: 12px;
+      padding: 0 8px;
+    }
+    
   }
   &&-very-small {
     height: 24px;
@@ -140,6 +146,9 @@
   &&-cta {
     font-weight: 600;
     text-transform: uppercase;
+    &.ant-btn.ant-btn-normal{
+      padding: 0px 30px;
+    }
   }
   &&-karma-pick {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
