@@ -48,6 +48,7 @@
       padding: 0 4px;
     }
   }
+  
   /* Type */
   &&-primary {
     background-color: @orange;
@@ -55,10 +56,6 @@
     border: none;
     & > svg {
       fill: @white;
-      & > path {
-        stroke: @white;
-        fill: transparent;
-      }
     }
     &:hover,
     &:focus {
@@ -69,14 +66,14 @@
       background-color: lighten(@orange, 10%);
       box-shadow: 0px 4px 20px fadeout(@orange, 80%);
     }
-    &&-very-small {
-      height: 24px;
-      font-size: 12px;
-      @media only screen and (max-width: 900px){
-        height: 16px;
-        font-size: 10px;
-        padding: 0 4px;
-      }
+
+  }
+  &&-secondary{
+    background-color: @green;
+    color: @black;
+    border: none;
+    & > svg {
+      fill: @black;
     }
     &:hover,
     &:focus {
@@ -91,6 +88,7 @@
     }
   }
 
+  /* Outline */
   &&-outline {
     &-primary {
       background-color: @black;
@@ -131,17 +129,18 @@
       }
     }
     
-    &&-outline {
+    /*
+     &&-outline {
       &-primary {
         background-color: @black;
         color: @orange;
         border-color: darken(@orange, 4%);
         & > svg {
           fill: @orange;
-          /* & > path {
+          & > path {
             stroke: @orange;
             fill: transparent;
-          } */
+          }
         }
         &:hover, &:focus {
           color: @orange;
@@ -160,10 +159,10 @@
         border-color: darken(@green, 4%);
         & > svg {
           fill: @green;
-          /* & > path {
+          & > path {
             stroke: @green;
             fill: transparent;
-          } */
+          }
         }
         &:hover, &:focus {
           color: @green;
@@ -176,7 +175,8 @@
           box-shadow: 0px 4px 20px fadeout(@green, 90%);
         }
       }
-  }
+  } */
+}
   /* Variants */
   &&-cta {
     font-weight: 600;
@@ -221,5 +221,4 @@
       } */
     }
   }
-}
 }

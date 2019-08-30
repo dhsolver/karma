@@ -31,7 +31,7 @@ function SecondNav(props) {
 
 SecondNav.propTypes = {
   children: PropTypes.object,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
 };
 
 export default SecondNav;

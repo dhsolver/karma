@@ -240,7 +240,7 @@ TopNav.propTypes = {
   isLoggedIn: PropTypes.bool,
   onLogout: PropTypes.func,
   windowWidth: PropTypes.number,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object
 };
 
 const mapStatesToProps = state => ({
