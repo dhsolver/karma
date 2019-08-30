@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography, Menu } from 'antd';
-import { Page, PageContent, TopNav, SecondNav } from '@containers/Layout';
+import { Typography } from 'antd';
+import { Page, PageContent, TopNav } from '@containers/Layout';
 const { Title } = Typography;
 const WhereToBet = () => {
   return (

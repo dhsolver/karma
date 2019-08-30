@@ -69,16 +69,13 @@
       background-color: lighten(@orange, 10%);
       box-shadow: 0px 4px 20px fadeout(@orange, 80%);
     }
-  }
-  &&-secondary {
-    background-color: @green;
-    color: @black;
-    border: none;
-    & > svg {
-      fill: @black;
-      & > path {
-        stroke: @black;
-        fill: transparent;
+    &&-very-small {
+      height: 24px;
+      font-size: 12px;
+      @media only screen and (max-width: 900px){
+        height: 16px;
+        font-size: 10px;
+        padding: 0 4px;
       }
     }
     &:hover,
@@ -101,10 +98,6 @@
       border-color: darken(@orange, 4%);
       & > svg {
         fill: @orange;
-        & > path {
-          stroke: @orange;
-          fill: transparent;
-        }
       }
       &:hover,
       &:focus {
@@ -124,10 +117,6 @@
       border-color: darken(@green, 4%);
       & > svg {
         fill: @green;
-        & > path {
-          stroke: @green;
-          fill: transparent;
-        }
       }
       &:hover,
       &:focus {
@@ -141,6 +130,52 @@
         box-shadow: 0px 4px 20px fadeout(@green, 90%);
       }
     }
+    
+    &&-outline {
+      &-primary {
+        background-color: @black;
+        color: @orange;
+        border-color: darken(@orange, 4%);
+        & > svg {
+          fill: @orange;
+          /* & > path {
+            stroke: @orange;
+            fill: transparent;
+          } */
+        }
+        &:hover, &:focus {
+          color: @orange;
+        border-color: darken(@orange, 4%);
+          background-color: fadeout(@orange, 90%);
+          box-shadow: 0px 2px 10px fadeout(@orange, 90%);
+        }
+        &:active {
+          background-color: fadeout(@orange, 80%);
+          box-shadow: 0px 4px 20px fadeout(@orange, 90%);
+        }
+      }
+      &-secondary {
+        background-color: @black;
+        color: @green;
+        border-color: darken(@green, 4%);
+        & > svg {
+          fill: @green;
+          /* & > path {
+            stroke: @green;
+            fill: transparent;
+          } */
+        }
+        &:hover, &:focus {
+          color: @green;
+        border-color: darken(@green, 4%);
+          background-color: fadeout(@green, 90%);
+          box-shadow: 0px 2px 10px fadeout(@green, 90%);
+        }
+        &:active {
+          background-color: fadeout(@green, 80%);
+          box-shadow: 0px 4px 20px fadeout(@green, 90%);
+        }
+      }
   }
   /* Variants */
   &&-cta {
@@ -180,10 +215,11 @@
 
     & > svg {
       stroke: @border-color-base;
-      & > path {
+      /* & > path {
         stroke: @border-color-base;
         fill: transparent;
-      }
+      } */
     }
   }
+}
 }
