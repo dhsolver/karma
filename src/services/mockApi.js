@@ -43,6 +43,21 @@ function createApi() {
         available: true
       });
     },
+    addSingleBet: async () => {
+      return createResult({
+        success: true
+      });
+    },
+    addPropBet: async () => {
+      return createResult({
+        success: true
+      });
+    },
+    addParlayBet: async () => {
+      return createResult({
+        success: true
+      });
+    },
     getArticles: async () => {
       return articles.map(convertArticle);
     },

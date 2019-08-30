@@ -126,7 +126,7 @@ class RenderMobileUserMenus extends Component {
 }
 
 function TopNav(props) {
-  const { type, isLoggedIn, windowWidth, history, onLogout } = props;
+  const { type, isLoggedIn, windowWidth, onLogout } = props;
 
   const handleMenuClick = item => {
     const { key: menuKey } = item;

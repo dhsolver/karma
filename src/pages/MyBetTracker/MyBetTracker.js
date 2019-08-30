@@ -2,11 +2,10 @@ import React from 'react';
 import { Typography } from 'antd';
 import { Page, PageContent, TopNav } from '@containers/Layout';
 const { Title } = Typography;
-const MyBetTracker = props => {
-  const { history } = props;
+const MyBetTracker = () => {
   return (
     <Page>
-      <TopNav history={history} />
+      <TopNav />
       <PageContent className="home">
         <Title level={2}>My Bet Tracker</Title>
       </PageContent>

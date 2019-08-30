@@ -1,12 +1,11 @@
 import React from 'react';
-import { Typography, Menu } from 'antd';
-import { Page, PageContent, TopNav, SecondNav } from '@containers/Layout';
+import { Typography } from 'antd';
+import { Page, PageContent, TopNav } from '@containers/Layout';
 const { Title } = Typography;
-const WhereToBet = props => {
-  const { history } = props;
+const WhereToBet = () => {
   return (
     <Page>
-      <TopNav history={history} />
+      <TopNav />
       <PageContent className="home">
         <Title level={2}>Where to Bet</Title>
       </PageContent>

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Layout, Menu } from 'antd';
-
+import history from '@utils/history';
 const { Header } = Layout;
 
 function SecondNav(props) {
-  const { children, history } = props;
+  const { children } = props;
   const handleMenuClick = item => {
     const { key: menuKey } = item;
     if (menuKey === 'logout') {

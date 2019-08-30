@@ -5,13 +5,12 @@ import { isMobile } from 'react-device-detect';
 import { ArticlesList } from '@containers/articles';
 import './Home.less';
 
-export default function HomePage(props) {
+export default function HomePage() {
   const mainClassName = 'home';
-  const { history } = props;
   return (
     <Page>
-      <TopNav history={history} />
-      <SecondNav history={history}>
+      <TopNav />
+      <SecondNav>
         <Menu.Item key="enter-a-bet">Enter a bet</Menu.Item>
       </SecondNav>
       <PageContent className="home">
