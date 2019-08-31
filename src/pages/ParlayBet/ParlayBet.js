@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography } from 'antd';
+import { isMobile } from 'react-device-detect';
 import {
   Page,
   PageContent,
@@ -7,9 +8,11 @@ import {
   SecondNav,
   BetNav
 } from '@containers/Layout';
-import ParlayBetSubmit from '@containers/MyBetTracker/ParlayBetForm/ParlayBetSubmit';
-import ParlayBetList from '@containers/MyBetTracker/ParlayBetForm/ParlayBetList';
-import ParlayBetForm from '@containers/MyBetTracker/ParlayBetForm/ParlayBetForm';
+// import ParlayBetContent from '@containers/MyBetTracker/ParlayBetForm/web/ParlayBetContent';
+// import ParlayBetContentMobile from '@containers/MyBetTracker/ParlayBetForm/mobile/ParlayBetContent';
+import ParlayBetContent from '../../containers/myBetTracker/ParlayBetForm/web/ParlayBetContent';
+import ParlayBetContentMobile from '../../containers/myBetTracker/ParlayBetForm/mobile/ParlayBetContent';
+
 import './ParlayBet.less';
 
 const { Title } = Typography;
@@ -21,15 +24,11 @@ export default function ParlayBetPage() {
       <SecondNav>
         <BetNav />
       </SecondNav>
-      <PageContent className="parlayBet">
-        <Title level={2}>Parlay Bet</Title>
-        <div className="parlayBet__content">
-          <div className="parlayBet__list-container">
-            <ParlayBetList />
-            <ParlayBetSubmit />
-          </div>
-          <ParlayBetForm />
-        </div>
+      <PageContent
+        className={isMobile ? 'parlayBet parlayBet_mobile' : 'parlayBet'}
+      >
+        {!isMobile && <Title level={2}>Parlay Bet 2</Title>}
+        {isMobile ? <ParlayBetContentMobile /> : <ParlayBetContent />}
       </PageContent>
     </Page>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography } from 'antd';
+import { isMobile } from 'react-device-detect';
 import {
   Page,
   PageContent,
@@ -20,8 +21,14 @@ export default function PropBetPage() {
         <BetNav />
       </SecondNav>
       <PageContent className="propBet">
-        <Title level={2}>Prop Bet</Title>
-        <div className="propBet__form-container">
+        {!isMobile && <Title level={2}>Prop Bet</Title>}
+        <div
+          className={
+            isMobile
+              ? 'propBet__form-container_mobile'
+              : 'propBet__form-container'
+          }
+        >
           <PropBetForm />
         </div>
       </PageContent>

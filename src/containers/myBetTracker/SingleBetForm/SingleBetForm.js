@@ -45,7 +45,8 @@ class SingleBetForm extends React.Component {
     addSingleInParlay: PropTypes.func,
     betForm: PropTypes.string,
     parlayBetCount: PropTypes.number,
-    updateSingleInParlay: PropTypes.func
+    updateSingleInParlay: PropTypes.func,
+    cancelSubmission: PropTypes.func
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -94,6 +95,7 @@ class SingleBetForm extends React.Component {
           onSubmit(values);
         }
       } else if (betForm === 'parlay') {
+        resetForm({});
         if (!this.state.editMode) {
           addSingleInParlay({
             ...values,
@@ -102,23 +104,19 @@ class SingleBetForm extends React.Component {
           });
         } else {
           updateSingleInParlay(this.state.formData.id, values);
-          /*
-          this.setState({
-            editMode: false
-          });
-          */
         }
-        resetForm({});
       }
     } catch (err) {
-      /*
-      const errors = {
-        password: 'Password is wrong'
-      };
-      */
       setErrors(err);
     }
     setSubmitting(false);
+  };
+
+  cancelSubmission = () => {
+    const { betForm } = this.props;
+    if (betForm === 'parlay' && 'cancelSubmission' in this.props) {
+      this.props.cancelSubmission();
+    }
   };
 
   renderForm = ({ isValid, isSubmitting }) => {
@@ -126,8 +124,8 @@ class SingleBetForm extends React.Component {
     const { appData } = this.props;
     return (
       <Form>
-        <Row gutter={16}>
-          <Col span={12}>
+        <Row gutter={16} className="singleBet__row">
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="betType"
@@ -136,7 +134,7 @@ class SingleBetForm extends React.Component {
               handleChange={this.setBetType}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={TextInput}
               name="betAmount"
@@ -146,8 +144,8 @@ class SingleBetForm extends React.Component {
             />
           </Col>
         </Row>
-        <Row gutter={16}>
-          <Col span={12}>
+        <Row gutter={16} className="singleBet__row">
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="sport"
@@ -155,13 +153,19 @@ class SingleBetForm extends React.Component {
               options={appData['sportMenu']}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field component={DateInput} name="date" label="Date" />
           </Col>
         </Row>
         {betType !== BET_TYPE['ou'] && (
-          <Row gutter={16} type="flex" justify="center" align="middle">
-            <Col span={11}>
+          <Row
+            gutter={16}
+            type="flex"
+            justify="center"
+            align="middle"
+            className="singleBet__row"
+          >
+            <Col xs={10} sm={11}>
               <Field
                 component={SelectMenu}
                 name="teamOne"
@@ -169,8 +173,10 @@ class SingleBetForm extends React.Component {
                 options={appData['teamMenu']}
               />
             </Col>
-            <Col span={2}>over</Col>
-            <Col span={11}>
+            <Col xs={4} sm={2}>
+              over
+            </Col>
+            <Col xs={10} sm={11}>
               <Field
                 component={SelectMenu}
                 name="teamTwo"
@@ -181,8 +187,8 @@ class SingleBetForm extends React.Component {
           </Row>
         )}
         {betType === BET_TYPE['ou'] && (
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={16} className="singleBet__row">
+            <Col xs={24} sm={12}>
               <Field
                 component={SelectMenu}
                 name="matchup"
@@ -190,7 +196,7 @@ class SingleBetForm extends React.Component {
                 options={appData['matchupMenu']}
               />
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Field
                 component={SelectMenu}
                 name="overUnderFlag"
@@ -200,9 +206,9 @@ class SingleBetForm extends React.Component {
             </Col>
           </Row>
         )}
-        <Row gutter={16}>
+        <Row gutter={16} className="singleBet__row">
           {betType === BET_TYPE['ou'] && (
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Field
                 component={TextInput}
                 name="overUnderNumber"
@@ -212,7 +218,7 @@ class SingleBetForm extends React.Component {
             </Col>
           )}
           {betType !== BET_TYPE['sd'] && (
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Field
                 component={TextInput}
                 name="odds"
@@ -223,8 +229,8 @@ class SingleBetForm extends React.Component {
           )}
         </Row>
         {betType === BET_TYPE['sd'] && (
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={16} className="singleBet__row">
+            <Col xs={24} sm={12}>
               <Field
                 component={TextInput}
                 name="spread"
@@ -235,7 +241,7 @@ class SingleBetForm extends React.Component {
           </Row>
         )}
         <Divider />
-        <Row gutter={16}>
+        <Row gutter={16} className="singleBet__row">
           <Col span={12}>
             <Button
               type="secondary"
@@ -248,7 +254,13 @@ class SingleBetForm extends React.Component {
             </Button>
           </Col>
           <Col span={12}>
-            <Button type="secondary" size="large" block outline>
+            <Button
+              type="secondary"
+              size="large"
+              block
+              outline
+              onClick={this.cancelSubmission}
+            >
               Cancel
             </Button>
           </Col>

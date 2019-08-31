@@ -1,9 +1,8 @@
-import { put, all, takeLatest } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import history from '@utils/history';
 import AppActions from './AppRedux';
 // import logger from '@utils/logger';
 import AuthActions from './AuthRedux';
-import AppTypes from './AppRedux';
 
 export function* startup() {
   const token = localStorage.getItem('token');
@@ -84,20 +83,11 @@ export function* addBets() {
   const { location } = history;
   // TODO: no hard code for route name
   if (
-    location.pathname === '/my-bet-tracker' ||
+    location.pathname === '/single-game' ||
     location.pathname === '/prop-bet' ||
     location.pathname === '/parlay'
   ) {
     history.push('/');
   }
   yield true;
-}
-
-export default function* root() {
-  yield all([
-    takeLatest(AppTypes.STARTUP, startup),
-    takeLatest(AppTypes.ADD_SINGLE_BET, addBets),
-    takeLatest(AppTypes.ADD_PROP_BET, addBets),
-    takeLatest(AppTypes.ADD_PARLAY_BET, addBets)
-  ]);
 }

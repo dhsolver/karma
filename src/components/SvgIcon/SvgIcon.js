@@ -21,11 +21,11 @@ import WeatherSVG from '@assets/svg/weather.svg';
 
 import './SvgIcon.less';
 
-import {Icon} from "antd";
+import { Icon } from 'antd';
 
 // TODO: check Image component and allow customization
 function SvgIcon(props) {
-  const { name, ...restProps } = props;
+  const { name, theme, ...restProps } = props;
 
   switch (name) {
     case 'qb':
@@ -121,16 +121,13 @@ function SvgIcon(props) {
         <WeatherSVG className="svg-icon" viewBox="0 0 100 100" {...restProps} />
       );
     default:
-      return (
-        <Icon type={name} />
-      )
+      return <Icon type={name} theme={theme} />;
   }
-
-  return null;
 }
 
 SvgIcon.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  theme: PropTypes.string
 };
 
 export default SvgIcon;

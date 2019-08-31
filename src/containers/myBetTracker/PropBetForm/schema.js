@@ -10,7 +10,7 @@ export default object().shape({
     }),
   matchup: string().required('Matchup is required'),
   team: string().required('Team is required'),
-  stat: number().required('Stat is required'),
+  stat: string().required('Stat is required'),
   numberType: string().required('Number Type is required'),
   number: number().required('Number is required'),
   odds: number().required('Odds is required')

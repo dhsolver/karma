@@ -40,7 +40,7 @@ class PropBetForm extends React.Component {
     return (
       <Form>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={TextInput}
               name="betAmount"
@@ -51,7 +51,7 @@ class PropBetForm extends React.Component {
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="sport"
@@ -59,12 +59,12 @@ class PropBetForm extends React.Component {
               options={appData['sportMenu']}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field component={DateInput} name="date" label="Date" />
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="matchup"
@@ -74,7 +74,7 @@ class PropBetForm extends React.Component {
           </Col>
         </Row>
         <Row gutter={16} type="flex" justify="center" align="middle">
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="team"
@@ -82,7 +82,7 @@ class PropBetForm extends React.Component {
               options={appData['teamMenu']}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="player"
@@ -92,7 +92,7 @@ class PropBetForm extends React.Component {
           </Col>
         </Row>
         <Row gutter={16} type="flex" justify="center" align="middle">
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="stat"
@@ -100,7 +100,7 @@ class PropBetForm extends React.Component {
               options={appData['statMenu']}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Row gutter={8} type="flex" justify="center" align="middle">
               <Col span={14}>
                 <Field
@@ -122,7 +122,7 @@ class PropBetForm extends React.Component {
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field component={TextInput} name="odds" type="text" label="Odds" />
           </Col>
         </Row>

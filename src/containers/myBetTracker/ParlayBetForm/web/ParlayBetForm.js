@@ -6,7 +6,7 @@ import { Typography, Divider } from 'antd';
 import { AppSelectors } from '@redux/AppRedux';
 
 import SingleBetForm from '@containers/MyBetTracker/SingleBetForm';
-import ParlayBetAmount from '@containers/MyBetTracker/ParlayBetForm/ParlayBetAmount';
+import ParlayBetAmount from './ParlayBetAmount';
 import './ParlayBetForm.less';
 
 const { Title } = Typography;
@@ -76,16 +76,14 @@ class ParlayBetForm extends React.Component {
   };
 
   render() {
+    const { betCount } = this.state;
     return (
       <div className="parlayBet_forms-container">
         {this.renderAmountForm()}
         <div className="parlayBet__form-container">
           <Title level={4}>BET #{this.getBetCount()}</Title>
           <Divider />
-          <SingleBetForm
-            betForm="parlay"
-            parlayBetCount={this.state.betCount}
-          />
+          <SingleBetForm betForm="parlay" parlayBetCount={betCount} />
         </div>
       </div>
     );

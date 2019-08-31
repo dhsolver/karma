@@ -1,4 +1,4 @@
-@import '../../../styles/variables.less';
+@import '../../../../styles/variables.less';
 
 .parlayBet__list {
     .closeBtnCol {
@@ -11,13 +11,23 @@
         padding: 0 4px !important;
         font-size: 10px !important;
     }
+
+    .ant-list-item {
+        border: 1px solid @border-color-base;
+        opacity: 0.8;
+        background-color: @background-color-base;
+        box-shadow: @box-shadow-base;
+        padding: 12px 15px;
+        margin-bottom: 15px;
+    }
 }
 
-.parlayBet_forms-container {
+.parlayBet_forms-container_mobile {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100%;
 }
 
 .parlayBet__amount-container {
@@ -39,5 +49,21 @@
     background-color: @background-color-base;
     box-shadow: @box-shadow-base;
     padding: 44px;
+}
+
+.parlayBet__content_mobile {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 80%;
+}
+
+.parlayBet_form-container_mobile {
+    width: 100%;
+}
+
+.parlayBet__list-container_mobile {
+    width: 100%;
+    margin: 0 auto;
 }
 

@@ -35,7 +35,7 @@ function DateInput(props) {
       colon={false}
     >
       <DatePicker
-        defaultValue={moment(value, dateFormat)}
+        value={value ? moment(value, dateFormat) : null}
         format={dateFormat}
         onChange={handleChangeLocal}
       />

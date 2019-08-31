@@ -61,13 +61,21 @@ class ParlayBetSubmit extends React.Component {
         <Button
           type="secondary"
           size="large"
+          icon="plus"
           onClick={this.addABetClicked}
           block
           outline
         >
           Add a Bet
         </Button>
-        <Button type="secondary" size="large" onClick={this.handleSubmit} block>
+        <Button
+          type="secondary"
+          icon="check-circle"
+          theme="filled"
+          size="large"
+          onClick={this.handleSubmit}
+          block
+        >
           Submit Parlay
         </Button>
       </div>
@@ -80,8 +88,7 @@ const mapStatesToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: () => dispatch(AppActions.addParlayBet()),
-  addABetClicked: () => dispatch(AppActions.addABetClicked())
+  onSubmit: () => dispatch(AppActions.addParlayBet())
 });
 
 export default connect(
