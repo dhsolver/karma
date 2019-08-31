@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import { Page, PageContent, TopNav, SecondNav } from '@containers/Layout';
 
-export default function Account(props) {
+export default function EnterABet(props) {
   const { history } = props;
   return (
     <Page>
@@ -11,7 +11,7 @@ export default function Account(props) {
         <Menu.Item key="enter-a-bet">Enter a bet</Menu.Item>
       </SecondNav>
       <PageContent className="home">
-        <h1>Account page</h1>
+        <h1>Enter a bet</h1>
       </PageContent>
     </Page>
   );

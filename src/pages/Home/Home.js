@@ -11,10 +11,7 @@ export default function HomePage() {
     <Page>
       <TopNav />
       <SecondNav>
-        <Menu mode="horizontal">
-          <Menu.Item>Enter a bet</Menu.Item>
-          <Menu.Item>af</Menu.Item>
-        </Menu>
+        <Menu.Item key="enter-a-bet">Enter a bet</Menu.Item>
       </SecondNav>
       <PageContent className="home">
         <div className={`${mainClassName}__articles`}>

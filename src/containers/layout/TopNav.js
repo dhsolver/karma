@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Menu, Icon } from 'antd';
 import Logo from '@components/Logo';
-import { AuthSelectors } from '@redux/AuthRedux';
+import AuthActions, { AuthSelectors } from '@redux/AuthRedux';
 import history from '@utils/history';
 import windowSize from 'react-window-size';
 import { Button } from '@components/common/Button';
@@ -25,13 +25,26 @@ class RenderMobileUserMenus extends Component {
       isExpanded: !this.state.isExpanded
     });
   };
+  handleMenuClick = event => {
+    const { key: menuKey } = event.target.dataset;
+    if (menuKey === 'logout') {
+      this.props.onLogout();
+    }
+    history.push(`/${menuKey}`);
+  };
   render() {
+    const { isLoggedIn } = this.props;
     return (
       <React.Fragment>
         <ul>
           {!this.state.isExpanded && (
-            <li style={{ display: 'inline-block' }}>
-              <Button type="primary" variant="cta" size="very-small">
+            <li style={{ display: 'inline-block', cursor: 'pointer' }}>
+              <Button
+                type="primary"
+                variant="cta"
+                size="very-small"
+                onClick={() => history.push('/sales')}
+              >
                 Free trial
               </Button>
             </li>
@@ -50,16 +63,61 @@ class RenderMobileUserMenus extends Component {
         {this.state.isExpanded && (
           <div className="mobile-menu">
             <ul>
-              <li>MLB</li>
-              <li>NBA</li>
-              <li>NFL</li>
+              <li onClick={this.handleMenuClick} key="mlb" data-key="mlb">
+                MLB
+              </li>
+              <li onClick={this.handleMenuClick} key="nba" data-key="nba">
+                NBA
+              </li>
+              <li onClick={this.handleMenuClick} key="nfl" data-key="nfl">
+                NFL
+              </li>
             </ul>
-            <ul>
-              <li>Bet Calculator</li>
-              <li>My Bet Tracker</li>
-              <li>My Account</li>
-              <li>Logout</li>
-            </ul>
+            {isLoggedIn ? (
+              <ul>
+                <li
+                  key="bet-calculator"
+                  data-key="bet-calculator"
+                  onClick={this.handleMenuClick}
+                >
+                  Bet Calculator
+                </li>
+                <li
+                  key="my-bet-tracker"
+                  data-key="my-bet-tracker"
+                  onClick={this.handleMenuClick}
+                >
+                  My Bet Tracker
+                </li>
+                <li
+                  key="account"
+                  data-key="account"
+                  onClick={this.handleMenuClick}
+                >
+                  My Account
+                </li>
+                <li
+                  key="logout"
+                  data-key="logout"
+                  onClick={this.handleMenuClick}
+                >
+                  Logout
+                </li>
+              </ul>
+            ) : (
+              <ul>
+                <li key="login" data-key="login" onClick={this.handleMenuClick}>
+                  Log In
+                </li>
+                <li
+                  key="sign-up"
+                  data-key="sign-up"
+                  onClick={this.handleMenuClick}
+                >
+                  Sign Up
+                </li>
+              </ul>
+            )}
           </div>
         )}
       </React.Fragment>
@@ -68,16 +126,25 @@ class RenderMobileUserMenus extends Component {
 }
 
 function TopNav(props) {
-  const { type, isLoggedIn, windowWidth } = props;
+  const { type, isLoggedIn, windowWidth, onLogout } = props;
 
   const handleMenuClick = item => {
     const { key: menuKey } = item;
+    if (menuKey === 'logout') {
+      onLogout();
+    }
     history.push(`/${menuKey}`);
   };
 
   const renderAnnonMenus = () => {
+    const { pathname } = history.location;
+    const currentPathname = pathname && pathname.slice(1, pathname.length);
     return (
-      <Menu onClick={handleMenuClick} mode="horizontal">
+      <Menu
+        onClick={handleMenuClick}
+        mode="horizontal"
+        selectedKeys={[currentPathname]}
+      >
         <Menu.Item key="mlb" style={{ fontWeight: '700' }}>
           MLB
         </Menu.Item>
@@ -92,25 +159,53 @@ function TopNav(props) {
   };
 
   const renderUserMenus = () => {
+    const { pathname } = history.location;
+    const currentPathname = pathname && pathname.slice(1, pathname.length);
     if (windowWidth > 900) {
-      return (
-        <Menu onClick={handleMenuClick} mode="horizontal">
-          <Menu.Item style={{ fontSize: '12px' }} key="where-to-bet">
-            Where to Bet
-          </Menu.Item>
-          <Menu.Item style={{ fontSize: '12px' }} key="bet-calculator">
-            Bet Calculator
-          </Menu.Item>
-          <Menu.Item style={{ fontSize: '12px' }} key="my-bet-tracker">
-            My Bet Tracker
-          </Menu.Item>
-          <Menu.Item key="account">
-            <Icon type="user"></Icon>
-          </Menu.Item>
-        </Menu>
-      );
+      if (isLoggedIn) {
+        return (
+          <Menu
+            onClick={handleMenuClick}
+            mode="horizontal"
+            selectedKeys={[currentPathname]}
+          >
+            <Menu.Item style={{ fontSize: '12px' }} key="where-to-bet">
+              Where to Bet
+            </Menu.Item>
+            <Menu.Item style={{ fontSize: '12px' }} key="bet-calculator">
+              Bet Calculator
+            </Menu.Item>
+            <Menu.Item style={{ fontSize: '12px' }} key="my-bet-tracker">
+              My Bet Tracker
+            </Menu.Item>
+            <Menu.Item style={{ fontSize: '12px' }} key="logout">
+              Logout
+            </Menu.Item>
+            <Menu.Item key="account" id="account">
+              <Icon type="user"></Icon>
+            </Menu.Item>
+          </Menu>
+        );
+      } else {
+        return (
+          <Menu
+            onClick={handleMenuClick}
+            mode="horizontal"
+            selectedKeys={[currentPathname]}
+          >
+            <Menu.Item style={{ fontSize: '12px' }} key="sign-up">
+              Sign Up
+            </Menu.Item>
+            <Menu.Item style={{ fontSize: '12px' }} key="login">
+              Login
+            </Menu.Item>
+          </Menu>
+        );
+      }
     } else {
-      return <RenderMobileUserMenus />;
+      return (
+        <RenderMobileUserMenus onLogout={onLogout} isLoggedIn={isLoggedIn} />
+      );
     }
   };
 
@@ -135,18 +230,26 @@ function TopNav(props) {
         <Logo />
         {renderAnnonMenus()}
       </div>
-      <div className="menu-blocks">{isLoggedIn && renderUserMenus()}</div>
+      <div className="menu-blocks">{renderUserMenus()}</div>
     </div>
   );
 }
 
 TopNav.propTypes = {
   type: PropTypes.oneOf([NAV_TYPES.PRIMARY, NAV_TYPES.SECONDARY]),
-  isLoggedIn: PropTypes.bool
+  isLoggedIn: PropTypes.bool,
+  onLogout: PropTypes.func,
+  windowWidth: PropTypes.number,
+  history: PropTypes.object
 };
 
 const mapStatesToProps = state => ({
   isLoggedIn: AuthSelectors.selectIsLoggedIn(state)
 });
-
-export default connect(mapStatesToProps)(windowSize(TopNav));
+const mapDispatchToProps = dispatch => ({
+  onLogout: () => dispatch(AuthActions.setLoggedOut())
+});
+export default connect(
+  mapStatesToProps,
+  mapDispatchToProps
+)(windowSize(TopNav));
