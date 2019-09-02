@@ -44,17 +44,17 @@ function createApi() {
       });
     },
     addSingleBet: async () => {
-      return createResult({
+      return createResponse({
         success: true
       });
     },
     addPropBet: async () => {
-      return createResult({
+      return createResponse({
         success: true
       });
     },
-    addParlayBet: async () => {
-      return createResult({
+    addParlayBet: async data => {
+      return createResponse({
         success: true
       });
     },

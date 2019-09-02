@@ -22,6 +22,7 @@ const Button = ({
   children,
   disabled,
   icon,
+  theme,
   ...restProps
 }) => {
   const btnTypeAndOutline = createType(type, outline);
@@ -37,7 +38,7 @@ const Button = ({
       disabled={disabled}
       {...restProps}
     >
-      {icon && <SvgIcon name={icon} />}
+      {icon && <SvgIcon name={icon} theme={theme} />}
       {children}
     </Btn>
   );

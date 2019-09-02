@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Select } from 'antd';
 import { getIn } from 'formik';
 
@@ -13,18 +14,19 @@ function SelectMenu(props) {
   const hasError = error !== undefined && touched;
   const isValid = !error && touched;
 
-  const { name, onChange, value, onBlur } = field;
+  const { name, value } = field;
   const { options, label, handleChange } = restProps;
 
   const children = [];
-  // const options_test = ["Money Line", "Spread", "Over/Under"];
   options.forEach(option => {
-    children.push(<Option key={option.id} value={option.id}>{option.name}</Option>);
+    children.push(
+      <Option key={option.id} value={option.name}>
+        {option.name}
+      </Option>
+    );
   });
-  console.log('Select Props: ',props);
 
-  const handleChangeLocal = (value) => {
-    console.log("inside handleChangeLocal :", value);
+  const handleChangeLocal = value => {
     form.setFieldValue(name, value);
     if (handleChange) {
       handleChange(value);
@@ -32,7 +34,6 @@ function SelectMenu(props) {
   };
 
   return (
-    
     <Form.Item
       label={label}
       validateStatus={hasError ? 'error' : undefined}
@@ -44,10 +45,11 @@ function SelectMenu(props) {
         name={name}
         style={{ width: '100%' }}
         placeholder="Please select"
+        value={value}
         // defaultValue={value ? { key: value } : undefined}
         // onChange={onChange}
         onChange={handleChangeLocal}
-        onBlur={()=> form.setFieldTouched(name, true)}
+        onBlur={() => form.setFieldTouched(name, true)}
         {...restProps}
       >
         {children}
@@ -55,4 +57,10 @@ function SelectMenu(props) {
     </Form.Item>
   );
 }
+
+SelectMenu.propTypes = {
+  field: PropTypes.object,
+  form: PropTypes.object
+};
+
 export default SelectMenu;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography } from 'antd';
+import { isMobile } from 'react-device-detect';
 import {
   Page,
   PageContent,
@@ -20,9 +21,15 @@ export default function SingleBetPage() {
         <BetNav />
       </SecondNav>
       <PageContent className="singleBet">
-        <Title level={2}>Single Game Bet</Title>
-        <div className="singleBet__form-container">
-          <SingleBetForm betForm="single"/>
+        {!isMobile && <Title level={2}>Single Game Bet</Title>}
+        <div
+          className={
+            isMobile
+              ? 'singleBet__form-container_mobile'
+              : 'singleBet__form-container'
+          }
+        >
+          <SingleBetForm betForm="single" />
         </div>
       </PageContent>
     </Page>

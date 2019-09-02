@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Divider } from 'antd';
+import { Typography } from 'antd';
+import { isMobile } from 'react-device-detect';
 import {
   Page,
   PageContent,
@@ -7,11 +8,11 @@ import {
   SecondNav,
   BetNav
 } from '@containers/Layout';
-import SingleBetForm from '@containers/MyBetTracker/SingleBetForm';
-import ParlayBetForm from '@containers/MyBetTracker/ParlayBetForm/ParlayBetForm';
-import ParlayBetList from '@containers/MyBetTracker/ParlayBetForm/ParlayBetList';
-import ParlayBetAmount from '@containers/MyBetTracker/ParlayBetForm/ParlayBetAmount';
-import { Button } from '@components/common/Button';
+// import ParlayBetContent from '@containers/MyBetTracker/ParlayBetForm/web/ParlayBetContent';
+// import ParlayBetContentMobile from '@containers/MyBetTracker/ParlayBetForm/mobile/ParlayBetContent';
+import ParlayBetContent from '../../containers/myBetTracker/ParlayBetForm/web/ParlayBetContent';
+import ParlayBetContentMobile from '../../containers/myBetTracker/ParlayBetForm/mobile/ParlayBetContent';
+
 import './ParlayBet.less';
 
 const { Title } = Typography;
@@ -23,28 +24,11 @@ export default function ParlayBetPage() {
       <SecondNav>
         <BetNav />
       </SecondNav>
-      <PageContent className="parlayBet">
-        <Title level={2}>Parlay Bet</Title>
-        <div className="parlayBet__content">
-          <div className="parlayBet__list-container">
-            <ParlayBetList />
-            <ParlayBetForm />
-          </div>
-          <div className="parlayBet_forms-container">
-            {
-              /* 
-              <div className="parlayBet__amount-container">
-                <ParlayBetAmount />
-              </div>
-              */
-            }
-            <div className="parlayBet__form-container">
-              <Title level={4}>BET #1</Title>
-              <Divider />
-              <SingleBetForm betForm="parlay" />
-            </div>
-          </div>
-        </div>
+      <PageContent
+        className={isMobile ? 'parlayBet parlayBet_mobile' : 'parlayBet'}
+      >
+        {!isMobile && <Title level={2}>Parlay Bet 2</Title>}
+        {isMobile ? <ParlayBetContentMobile /> : <ParlayBetContent />}
       </PageContent>
     </Page>
   );

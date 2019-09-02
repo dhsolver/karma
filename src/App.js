@@ -11,7 +11,6 @@ import PropBet from '@pages/PropBet';
 import ParlayBet from '@pages/ParlayBet';
 import WhereToBet from '@pages/WhereToBet';
 import BetCalculator from '@pages/BetCalculator';
-import MyBetTracker from '@pages/MyBetTracker';
 import LiveOdds from '@pages/LiveOdds';
 import MLB from '@pages/MLB';
 import NBA from '@pages/NBA';

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { Row, Col, Divider } from 'antd';
+import moment from 'moment';
+import uuid from 'uuid';
 import { TextInput, SelectMenu, DateInput } from '@components/form';
 import { Button } from '@components/common/Button';
 import API from '@utils/api';
@@ -19,25 +21,54 @@ class SingleBetForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      betType: BET_TYPE['ml']
+      betType: BET_TYPE['ml'],
+      editMode: false,
+      formData: {
+        betType: null,
+        betAmount: null,
+        sport: null,
+        date: moment(new Date(), 'DD/MM/YYYY'),
+        teamOne: null,
+        teamTwo: null,
+        matchup: null,
+        overUnderFlag: null,
+        overUnderNumber: null,
+        spread: null,
+        odds: null
+      }
     };
   }
 
   static propTypes = {
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    appData: PropTypes.object,
+    addSingleInParlay: PropTypes.func,
+    betForm: PropTypes.string,
+    parlayBetCount: PropTypes.number,
+    updateSingleInParlay: PropTypes.func,
+    cancelSubmission: PropTypes.func
   };
 
-  componentDidUpdate() {
-    console.log('inside componentDidUpdate', this.props);
+  static getDerivedStateFromProps(props, state) {
+    if (
+      'editSingleBet' in props.appData &&
+      props.appData.editSingleBet !== state.formData
+    ) {
+      return {
+        formData: props.appData.editSingleBet,
+        betType: props.appData.editSingleBet.betType,
+        editMode: Object.keys(props.appData.editSingleBet).length ? true : false
+      };
+    }
+    return null;
   }
 
   setBetType = value => {
-    console.log('inside setbettype ', value);
     const { appData } = this.props;
     const { betTypeMenu } = appData;
     let betType = '';
     betTypeMenu.forEach(betTypeData => {
-      if (betTypeData.id === value) {
+      if (betTypeData.name === value) {
         betType = betTypeData.name;
       }
     });
@@ -47,33 +78,45 @@ class SingleBetForm extends React.Component {
   };
 
   handleSubmit = async (values, actions) => {
-    console.log('inside handleSubmit');
-    console.log(values);
-    const { onSubmit, addSingleInParlay, betForm } = this.props;
+    const {
+      onSubmit,
+      addSingleInParlay,
+      betForm,
+      updateSingleInParlay
+    } = this.props;
     const { setSubmitting, setErrors, resetForm } = actions;
     setSubmitting(true);
 
     try {
       if (betForm === 'single') {
-        const { result } = await API.addSingleBet(values);
+        const result = await API.addSingleBet(values);
         setSubmitting(false);
         if (result.success) {
           onSubmit(values);
-          // resetForm({});
         }
       } else if (betForm === 'parlay') {
-        addSingleInParlay(values);
-        // resetForm({});
+        resetForm({});
+        if (!this.state.editMode) {
+          addSingleInParlay({
+            ...values,
+            betNumber: this.props.parlayBetCount,
+            id: uuid()
+          });
+        } else {
+          updateSingleInParlay(this.state.formData.id, values);
+        }
       }
     } catch (err) {
-      /*
-      const errors = {
-        password: 'Password is wrong'
-      };
-      */
       setErrors(err);
     }
     setSubmitting(false);
+  };
+
+  cancelSubmission = () => {
+    const { betForm } = this.props;
+    if (betForm === 'parlay' && 'cancelSubmission' in this.props) {
+      this.props.cancelSubmission();
+    }
   };
 
   renderForm = ({ isValid, isSubmitting }) => {
@@ -81,8 +124,8 @@ class SingleBetForm extends React.Component {
     const { appData } = this.props;
     return (
       <Form>
-        <Row gutter={16}>
-          <Col span={12}>
+        <Row gutter={16} className="singleBet__row">
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="betType"
@@ -91,7 +134,7 @@ class SingleBetForm extends React.Component {
               handleChange={this.setBetType}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={TextInput}
               name="betAmount"
@@ -101,8 +144,8 @@ class SingleBetForm extends React.Component {
             />
           </Col>
         </Row>
-        <Row gutter={16}>
-          <Col span={12}>
+        <Row gutter={16} className="singleBet__row">
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="sport"
@@ -110,13 +153,19 @@ class SingleBetForm extends React.Component {
               options={appData['sportMenu']}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field component={DateInput} name="date" label="Date" />
           </Col>
         </Row>
         {betType !== BET_TYPE['ou'] && (
-          <Row gutter={16} type="flex" justify="center" align="middle">
-            <Col span={11}>
+          <Row
+            gutter={16}
+            type="flex"
+            justify="center"
+            align="middle"
+            className="singleBet__row"
+          >
+            <Col xs={10} sm={11}>
               <Field
                 component={SelectMenu}
                 name="teamOne"
@@ -124,8 +173,10 @@ class SingleBetForm extends React.Component {
                 options={appData['teamMenu']}
               />
             </Col>
-            <Col span={2}>over</Col>
-            <Col span={11}>
+            <Col xs={4} sm={2}>
+              over
+            </Col>
+            <Col xs={10} sm={11}>
               <Field
                 component={SelectMenu}
                 name="teamTwo"
@@ -136,8 +187,8 @@ class SingleBetForm extends React.Component {
           </Row>
         )}
         {betType === BET_TYPE['ou'] && (
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={16} className="singleBet__row">
+            <Col xs={24} sm={12}>
               <Field
                 component={SelectMenu}
                 name="matchup"
@@ -145,7 +196,7 @@ class SingleBetForm extends React.Component {
                 options={appData['matchupMenu']}
               />
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Field
                 component={SelectMenu}
                 name="overUnderFlag"
@@ -155,9 +206,9 @@ class SingleBetForm extends React.Component {
             </Col>
           </Row>
         )}
-        <Row gutter={16}>
+        <Row gutter={16} className="singleBet__row">
           {betType === BET_TYPE['ou'] && (
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Field
                 component={TextInput}
                 name="overUnderNumber"
@@ -167,7 +218,7 @@ class SingleBetForm extends React.Component {
             </Col>
           )}
           {betType !== BET_TYPE['sd'] && (
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Field
                 component={TextInput}
                 name="odds"
@@ -178,8 +229,8 @@ class SingleBetForm extends React.Component {
           )}
         </Row>
         {betType === BET_TYPE['sd'] && (
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={16} className="singleBet__row">
+            <Col xs={24} sm={12}>
               <Field
                 component={TextInput}
                 name="spread"
@@ -190,7 +241,7 @@ class SingleBetForm extends React.Component {
           </Row>
         )}
         <Divider />
-        <Row gutter={16}>
+        <Row gutter={16} className="singleBet__row">
           <Col span={12}>
             <Button
               type="secondary"
@@ -199,11 +250,17 @@ class SingleBetForm extends React.Component {
               disabled={!isValid || isSubmitting}
               block
             >
-              Submit
+              {this.state.editMode ? 'Update' : 'Submit'}
             </Button>
           </Col>
           <Col span={12}>
-            <Button type="secondary" size="large" block outline>
+            <Button
+              type="secondary"
+              size="large"
+              block
+              outline
+              onClick={this.cancelSubmission}
+            >
               Cancel
             </Button>
           </Col>
@@ -215,36 +272,25 @@ class SingleBetForm extends React.Component {
   render() {
     return (
       <Formik
-        initialValues={{
-          betType: null,
-          betAmount: null,
-          sport: null,
-          date: new Date(),
-          teamOne: null,
-          teamTwo: null,
-          matchup: null,
-          overUnderFlag: null,
-          overUnderNumber: null,
-          spread: null,
-          odds: null
-        }}
+        enableReinitialize
+        initialValues={this.state.formData}
         onSubmit={this.handleSubmit}
-        validationSchema={validationSchema}
+        validationSchema={this.state.editMode ? null : validationSchema}
         render={this.renderForm}
       />
     );
   }
 }
 
-const mapStatesToProps = state => {
-  return {
-    appData: AppSelectors.selectData(state)
-  };
-};
+const mapStatesToProps = state => ({
+  appData: AppSelectors.selectData(state)
+});
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => dispatch(AppActions.addSingleBet(values)),
-  addSingleInParlay: values => dispatch(AppActions.addSingleInParlay(values))
+  addSingleInParlay: values => dispatch(AppActions.addSingleInParlay(values)),
+  updateSingleInParlay: (betId, values) =>
+    dispatch(AppActions.updateSingleInParlay({ betId, values }))
 });
 
 export default connect(

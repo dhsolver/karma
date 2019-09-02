@@ -56,8 +56,8 @@ class RenderMobileUserMenus extends Component {
             {this.state.isExpanded ? (
               <Icon type="close" />
             ) : (
-              <Icon type="menu" />
-            )}
+                <Icon type="menu" />
+              )}
           </li>
         </ul>
         {this.state.isExpanded && (

@@ -1,6 +1,6 @@
 import { all, takeLatest } from 'redux-saga/effects';
 import { AppTypes } from './AppRedux';
-import { startup } from './AppSaga';
+import { startup, addBets } from './AppSaga';
 import { AuthTypes } from './AuthRedux';
 import { storeToken, clearToken } from './AuthSaga';
 import { ArticleTypes } from './ArticleRedux';
@@ -16,6 +16,9 @@ export default function* root() {
     takeLatest(AppTypes.STARTUP, startup),
     takeLatest(AuthTypes.SET_LOGGED_IN, storeToken),
     takeLatest(AuthTypes.SET_LOGGED_OUT, clearToken),
+    takeLatest(AppTypes.ADD_SINGLE_BET, addBets),
+    takeLatest(AppTypes.ADD_PROP_BET, addBets),
+    takeLatest(AppTypes.ADD_PARLAY_BET, addBets),
     takeLatest(ArticleTypes.REQUEST_ARTICLES_LIST, loadArticles),
     takeLatest(GameTypes.REQUEST_GAMES_LIST, loadGames)
   ]);

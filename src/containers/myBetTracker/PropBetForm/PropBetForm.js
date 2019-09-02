@@ -14,18 +14,17 @@ import './PropBetForm.less';
 
 class PropBetForm extends React.Component {
   static propTypes = {
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    appData: PropTypes.object
   };
 
   handleSubmit = async (values, actions) => {
-    console.log('inside handleSubmit');
-    console.log(values);
     const { onSubmit } = this.props;
     const { setSubmitting, setErrors } = actions;
     setSubmitting(true);
 
     try {
-      const { result } = await API.addPropBet(values);
+      const result = await API.addPropBet(values);
       setSubmitting(false);
       if (result.success) {
         onSubmit(values);
@@ -41,7 +40,7 @@ class PropBetForm extends React.Component {
     return (
       <Form>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={TextInput}
               name="betAmount"
@@ -52,7 +51,7 @@ class PropBetForm extends React.Component {
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="sport"
@@ -60,12 +59,12 @@ class PropBetForm extends React.Component {
               options={appData['sportMenu']}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field component={DateInput} name="date" label="Date" />
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="matchup"
@@ -75,7 +74,7 @@ class PropBetForm extends React.Component {
           </Col>
         </Row>
         <Row gutter={16} type="flex" justify="center" align="middle">
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="team"
@@ -83,7 +82,7 @@ class PropBetForm extends React.Component {
               options={appData['teamMenu']}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="player"
@@ -93,7 +92,7 @@ class PropBetForm extends React.Component {
           </Col>
         </Row>
         <Row gutter={16} type="flex" justify="center" align="middle">
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field
               component={SelectMenu}
               name="stat"
@@ -101,7 +100,7 @@ class PropBetForm extends React.Component {
               options={appData['statMenu']}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Row gutter={8} type="flex" justify="center" align="middle">
               <Col span={14}>
                 <Field
@@ -123,7 +122,7 @@ class PropBetForm extends React.Component {
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col xs={24} sm={12}>
             <Field component={TextInput} name="odds" type="text" label="Odds" />
           </Col>
         </Row>
@@ -173,12 +172,9 @@ class PropBetForm extends React.Component {
   }
 }
 
-const mapStatesToProps = state => {
-  console.log('inside mapStatesToProps of prop bet :', state);
-  return {
-    appData: AppSelectors.selectData(state)
-  };
-};
+const mapStatesToProps = state => ({
+  appData: AppSelectors.selectData(state)
+});
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => dispatch(AppActions.addPropBet(values))
