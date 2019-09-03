@@ -1,0 +1,20 @@
+.article-headlines {
+    border: 1px solid #4d4d4d;
+    opacity: 0.8;
+    background-color: #262626;
+    box-shadow: 0 0 9px 6px rgba(33, 33, 33, 0.15);
+    padding: 10px 20px;
+
+    .ant-list-item {
+        border-bottom: none !important;
+    }
+
+    .ant-list-items li::before {
+        content: "\2022";
+        color: #FD6B3A;
+        font-weight: 900;
+        display: inline-block; 
+        width: 1em;
+        margin-left: -1em;
+      }
+}

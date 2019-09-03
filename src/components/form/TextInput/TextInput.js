@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input, Icon } from 'antd';
 import { getIn } from 'formik';
 
@@ -33,4 +34,10 @@ function TextInput(props) {
     </Form.Item>
   );
 }
+
+TextInput.propTypes = {
+  field: PropTypes.object,
+  form: PropTypes.object
+};
+
 export default TextInput;

@@ -13,3 +13,14 @@ export function* loadArticles() {
   }
   yield put(ArticleActions.setArticlesLoading(false));
 }
+
+export function* loadArticleHeadlines() {
+  yield put(ArticleActions.setArticleHeadlinesLoading(true));
+  try {
+    const articleHeadlines = yield API.getArticleHeadlines();
+    yield put(ArticleActions.setArticleHeadlines(articleHeadlines));
+  } catch (err) {
+    logger.log('loadArticleHeadlines', err);
+  }
+  yield put(ArticleActions.setArticleHeadlinesLoading(false));
+}
