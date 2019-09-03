@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cns from 'classnames';
+import get from 'lodash/get';
 
 import './KarmaGrid.less';
 
@@ -29,7 +30,7 @@ function KarmaGrid(props) {
 
   const renderCell = (row, col) => {
     const { dataIndex, width, align } = col;
-    const cell = row[dataIndex];
+    const cell = get(row, dataIndex);
     return (
       <div
         key={dataIndex}

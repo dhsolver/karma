@@ -1,116 +1,74 @@
-const TEAM_TYPE = {
-  AWAY: 'away',
-  HOME: 'home'
+import {
+  transformFromAPI as transformWeather,
+  getWeatherFractorValue
+} from './Weather';
+import { transformFromAPI as transformStadium } from './Stadium';
+import { transformFromAPI as transformKarma } from './Karma';
+import { transformFromAPI as transformSchedule } from './Schedule';
+import { transformFromAPI as transformScore } from './Score';
+import { transformFromAPI as transformOdd } from './Odd';
+
+export const INITIAL_GAME_STRUCTURE = {
+  id: '',
+  fractors: {},
+  progOdd: {},
+  liveOdd: {},
+  stadium: {},
+  weather: {},
+  score: {}
 };
 
-export const INITIAL_TEAM_INFO = {
-  type: TEAM_TYPE.HOME
-};
-
-export const EX_STADIUM_DETAILS = {
-  Capacity: 68532,
-  City: 'Philadelphia',
-  Country: 'USA',
-  GeoLat: 39.900771,
-  GeoLong: -75.167469,
-  Name: 'Lincoln Financial Field',
-  PlayingSurface: 'Grass',
-  StadiumID: 18,
-  State: 'PA',
-  Type: 'Outdoor'
-};
-
-export const INITIAL_STRUCTURE = {
-  Canceled: false,
-  Channel: null,
-  GeoLat: null,
-  GeoLong: null,
-  ScoreID: 16654
-};
+//TODO: needs to update this function
 
 export function transformFromAPI(apiResponse) {
   const {
-    ForecastDescription: forecastDescription,
-    ForecastTempHigh: forecastTempHigh,
-    ForecastTempLow: forecastTempLow,
-    ForecastWindChill: forecastWindChill,
-    ForecastWindSpeed: forecastWindSpeed,
-    Date: date,
-    DateTime: dateTime,
-    Day: day,
-    HomeTeam: homeTeam,
-    AwayTeam: awayTeam,
-    HomeTeamMoneyLine: homeTeamMoneyLine,
-    AwayTeamMoneyLine: awayTeamMoneyLine,
-    GameKey: id,
-    GlobalGameID: globalGameID,
-    StadiumDetails: stadium,
-    Status: status,
-    Week: week,
-    Season: season,
-    SeasonType: seasonType,
-    GlobalHomeTeamID: globalHomeTeamID,
-    GlobalAwayTeamID: globalAwayTeamID,
-    OverUnder: ou,
-    PointSpread: spread
+    HomeTeam: homeTeamInfoResponse,
+    AwayTeam: awayTeamInfoResponse,
+    Weather: weatherResponse,
+    Karma: karmaResponse,
+    Schedule: scheduleResponse,
+    Score: scoreResponse,
+    PregameOdds: oddResponse,
+    LiveOdds: liveResponse
   } = apiResponse;
+  const { StadiumDetails: stadiumResponse } = scheduleResponse;
+
+  const weather = transformWeather(weatherResponse);
+  const schedule = transformSchedule(scheduleResponse);
+  const stadium = transformStadium(stadiumResponse);
+  const karma = transformKarma(karmaResponse);
+  const score = transformScore(scoreResponse, schedule);
+  let liveOdd = transformOdd(liveResponse);
+  const progOdd = transformOdd(oddResponse);
+
+  if (!liveOdd.id) {
+    liveOdd = { ...progOdd };
+  }
+
   return {
-    id,
-    key: id,
-    globalGameID,
-    stadium,
-    status,
-    ou,
-    spread,
-    season: {
-      year: season,
-      seasonType,
-      week
-    },
-    fractors: {
-      weather: {
-        icon: forecastDescription.includes('Rain') ? 'weather' : '',
-        forecastDescription,
-        forecastTempHigh,
-        forecastTempLow,
-        forecastWindChill,
-        forecastWindSpeed
-      }
-    },
-    dateInfo: {
-      date,
-      dateTime,
-      day
-    },
-    gameInfo: {
+    id: score.gameId,
+    teamInfo: {
       homeTeam: {
-        id: globalHomeTeamID,
-        name: homeTeam
+        id: homeTeamInfoResponse.TeamID,
+        key: homeTeamInfoResponse.Key,
+        name: homeTeamInfoResponse.Name,
+        logo: homeTeamInfoResponse.WikipediaLogoUrl
       },
       awayTeam: {
-        id: globalAwayTeamID,
-        name: awayTeam
+        id: awayTeamInfoResponse.TeamID,
+        key: awayTeamInfoResponse.Key,
+        name: awayTeamInfoResponse.Name,
+        logo: awayTeamInfoResponse.WikipediaLogoUrl
       }
     },
-    live: {
-      homeTeam: '-7.5  (-115)',
-      awayTeam: '+7.5  (-105)'
+    karma,
+    stadium,
+    weather,
+    liveOdd,
+    progOdd,
+    fractors: {
+      weather: getWeatherFractorValue(weather)
     },
-    open: {
-      homeTeam: homeTeamMoneyLine,
-      awayTeam: awayTeamMoneyLine
-    },
-    moneyLine: {
-      homeTeam: homeTeamMoneyLine,
-      awayTeam: awayTeamMoneyLine
-    },
-    karmaPick: {
-      homeTeam: ' ',
-      awayTeam: 'ne +7.5'
-    },
-    karmaSim: {
-      homeTeam: ' ',
-      awayTeam: 'NE +6.5, 54%'
-    }
+    score
   };
 }

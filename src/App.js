@@ -64,7 +64,6 @@ class App extends Component {
         <Route exact path="/mlb" component={MLB} />
         <Route exact path="/nba" component={NBA} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/sales" component={Sales} />
         <Route exact path="/btn-demo" component={ButtonDemo} />
         <Route exact path="/where-to-bet" component={WhereToBet} />
         <Route exact path="/bet-calculator" component={BetCalculator} />

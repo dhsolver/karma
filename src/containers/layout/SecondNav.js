@@ -8,15 +8,12 @@ function SecondNav(props) {
   const { children } = props;
   const handleMenuClick = item => {
     const { key: menuKey } = item;
-    if (menuKey === 'logout') {
-      onLogout();
-    }
     history.push(`/${menuKey}`);
   };
   const { pathname } = history.location;
   const currentPathname = pathname && pathname.slice(1, pathname.length);
   return (
-    <Header>
+    <Header className="sub-header">
       <Menu
         mode="horizontal"
         selectedKeys={[currentPathname]}
