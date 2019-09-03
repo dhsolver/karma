@@ -14,9 +14,10 @@ import BetCalculator from '@pages/BetCalculator';
 import LiveOdds from '@pages/LiveOdds';
 import MLB from '@pages/MLB';
 import NBA from '@pages/NBA';
-import EnterABet from '@pages/EnterABet';
+// import EnterABet from '@pages/EnterABet';
 import Sales from '@pages/Sales';
 import SignUp from '@pages/SignUp';
+import ArticleDetail from '@pages/ArticleDetail';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
 import { ButtonDemo } from '@components/common/Button';
@@ -67,10 +68,11 @@ class App extends Component {
         <Route exact path="/btn-demo" component={ButtonDemo} />
         <Route exact path="/where-to-bet" component={WhereToBet} />
         <Route exact path="/bet-calculator" component={BetCalculator} />
-        <Route exact path="/my-bet-tracker" component={MyBetTracker} />
-        <Route exact path="/enter-a-bet" component={EnterABet} />
+        {/*<Route exact path="/my-bet-tracker" component={MyBetTracker} />
+        <Route exact path="/enter-a-bet" component={EnterABet} />*/}
         <Route exact path="/sales" component={Sales} />
         <Route exact path="/sign-up" component={SignUp} />
+        <Route exact path="/article" component={ArticleDetail} />
         <PrivateRoute
           exact
           path="/account"

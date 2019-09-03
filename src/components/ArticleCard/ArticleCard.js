@@ -37,7 +37,9 @@ function ArticleCard(props) {
           }}
         />
         <div className={`${mainClassName}__tool-bar`}>
-          <Link to="/">READ MORE</Link>
+          <Link to={{ pathname: '/article', state: { article: article } }}>
+            READ MORE
+          </Link>
           {premium && (
             <div className={`${mainClassName}__badge`}>
               <Text>Premium</Text>

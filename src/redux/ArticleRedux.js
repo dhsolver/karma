@@ -5,7 +5,10 @@ const { Types, Creators } = createActions({
   setCurrentArticle: ['articleId'],
   setArticlesLoading: ['loading'],
   setArticlesError: ['error'],
-  requestArticlesList: null
+  requestArticlesList: null,
+  requestArticleHeadlines: null,
+  setArticleHeadlinesLoading: ['loading'],
+  setArticleHeadlines: ['articleHeadlines']
 });
 
 export const ArticleTypes = Types;
@@ -16,7 +19,8 @@ export const INITIAL_STATE = {
   list: [],
   loading: false,
   error: null,
-  current: null
+  current: null,
+  articleHeadlines: []
 };
 
 /* ------- Selectors --------- */
@@ -31,7 +35,8 @@ export const ArticleSelectors = {
 
     return state.articles.list;
   },
-  selectArticle: state => state.articles.current
+  selectArticle: state => state.articles.current,
+  selectArticleHeadlines: state => state.articles.articleHeadlines
 };
 
 /* -------- Reducers ---------- */
@@ -54,9 +59,26 @@ export const setArticles = (state, { articles }) => ({
   list: articles
 });
 
-export const setArticle = (state, { article }) => ({
+export const setArticle = (state, { articleId }) => {
+  console.log('inside setArticle :', state, articleId);
+  const articleList = state.list;
+  const currentArticle = articleList.find(article => article.id === articleId);
+  if (Object.keys(currentArticle).length) {
+    return {
+      ...state,
+      current: currentArticle
+    };
+  } else {
+    return {
+      ...state,
+      current: {}
+    };
+  }
+};
+
+export const setArticleHeadlines = (state, { articleHeadlines }) => ({
   ...state,
-  current: article
+  articleHeadlines: articleHeadlines
 });
 
 /* -------- Hookup Reducers to Types -------- */
@@ -64,5 +86,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_ARTICLES_LOADING]: setLoading,
   [Types.SET_ARTICLES_ERROR]: setError,
   [Types.SET_CURRENT_ARTICLE]: setArticle,
-  [Types.SET_ARTICLES]: setArticles
+  [Types.SET_ARTICLES]: setArticles,
+  [Types.SET_ARTICLE_HEADLINES_LOADING]: setLoading,
+  [Types.SET_ARTICLE_HEADLINES]: setArticleHeadlines
 });

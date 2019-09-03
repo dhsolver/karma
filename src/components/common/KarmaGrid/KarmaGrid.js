@@ -51,7 +51,7 @@ function KarmaGrid(props) {
     return (
       <div
         key={`${mainClassName}__row_${row.key}`}
-        className={`${mainClassName}__row`}
+        className={cns(`${mainClassName}__row`, className)}
       >
         {columns.map(col => renderCell(row, col))}
       </div>

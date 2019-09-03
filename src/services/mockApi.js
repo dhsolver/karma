@@ -1,6 +1,7 @@
 import auth from './fixtures/auth';
 import articles from './fixtures/articles';
 import schedules from './fixtures/schedules';
+import articleHeadlines from './fixtures/articleHeadlines';
 import { transformFromAPI as convertArticle } from '@models/Article';
 import { transformFromAPI as convertGame } from '@models/Game';
 
@@ -63,6 +64,9 @@ function createApi() {
     },
     getGames: async () => {
       return schedules.map(convertGame);
+    },
+    getArticleHeadlines: async () => {
+      return articleHeadlines;
     }
   };
 }

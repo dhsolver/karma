@@ -4,7 +4,7 @@ import { startup, addBets } from './AppSaga';
 import { AuthTypes } from './AuthRedux';
 import { storeToken, clearToken } from './AuthSaga';
 import { ArticleTypes } from './ArticleRedux';
-import { loadArticles } from './ArticleSaga';
+import { loadArticles, loadArticleHeadlines } from './ArticleSaga';
 import { GameTypes } from './GameRedux';
 import { loadGames } from './GameSaga';
 
@@ -20,6 +20,7 @@ export default function* root() {
     takeLatest(AppTypes.ADD_PROP_BET, addBets),
     takeLatest(AppTypes.ADD_PARLAY_BET, addBets),
     takeLatest(ArticleTypes.REQUEST_ARTICLES_LIST, loadArticles),
+    takeLatest(ArticleTypes.REQUEST_ARTICLE_HEADLINES, loadArticleHeadlines),
     takeLatest(GameTypes.REQUEST_GAMES_LIST, loadGames)
   ]);
 }
