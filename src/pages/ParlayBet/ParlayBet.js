@@ -8,10 +8,8 @@ import {
   SecondNav,
   BetNav
 } from '@containers/Layout';
-// import ParlayBetContent from '@containers/MyBetTracker/ParlayBetForm/web/ParlayBetContent';
-// import ParlayBetContentMobile from '@containers/MyBetTracker/ParlayBetForm/mobile/ParlayBetContent';
-import ParlayBetContent from '../../containers/myBetTracker/ParlayBetForm/web/ParlayBetContent';
-import ParlayBetContentMobile from '../../containers/myBetTracker/ParlayBetForm/mobile/ParlayBetContent';
+
+import ParlayBetContent from '@containers/MyBetTracker/ParlayBetForm';
 
 import './ParlayBet.less';
 
@@ -28,7 +26,7 @@ export default function ParlayBetPage() {
         className={isMobile ? 'parlayBet parlayBet_mobile' : 'parlayBet'}
       >
         {!isMobile && <Title level={2}>Parlay Bet 2</Title>}
-        {isMobile ? <ParlayBetContentMobile /> : <ParlayBetContent />}
+        <ParlayBetContent />
       </PageContent>
     </Page>
   );
