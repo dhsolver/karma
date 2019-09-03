@@ -22,12 +22,13 @@ function LiveOddsList(props) {
 
   const renderCell = (cell, col, row) => {
     const { dataIndex } = col;
-    return <LiveOddListCell data={cell} type={dataIndex} refData={row} />;
+    const type = dataIndex.split('.').pop();
+    return <LiveOddListCell data={cell} type={type} refData={row} />;
   };
 
   const renderFractors = cell => {
     const { weather } = cell;
-    const { icon: weatherIcon } = weather;
+    const { icon: weatherIcon } = weather || {};
 
     return (
       <React.Fragment>
@@ -39,7 +40,7 @@ function LiveOddsList(props) {
   const cols = [
     {
       title: 'GAME',
-      dataIndex: 'gameInfo',
+      dataIndex: 'score',
       width: '320px',
       align: 'left',
       renderCell
@@ -53,40 +54,40 @@ function LiveOddsList(props) {
     },
     {
       title: 'OPEN',
-      dataIndex: 'open',
+      dataIndex: 'liveOdd.moneyLine',
       width: '320px',
       renderCell
     },
     {
       title: 'LIVE',
-      dataIndex: 'live',
+      dataIndex: 'liveOdd.live',
       width: '320px',
       renderCell
     },
     {
       title: 'SPREAD',
-      dataIndex: 'spread',
+      dataIndex: 'liveOdd.spread',
       width: '320px',
       align: 'right',
       renderCell
     },
     {
       title: 'O/U',
-      dataIndex: 'ou',
+      dataIndex: 'liveOdd.ou',
       width: '320px',
       align: 'right',
       renderCell
     },
     {
       title: 'Karma Sim',
-      dataIndex: 'karmaSim',
+      dataIndex: 'karma.karmaSim',
       align: 'right',
       width: '320px',
       renderCell
     },
     {
       title: 'Karma Pick',
-      dataIndex: 'karmaPick',
+      dataIndex: 'karma.karmaPick',
       width: '320px',
       align: 'right',
       renderCell
