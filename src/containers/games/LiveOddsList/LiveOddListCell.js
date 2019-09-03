@@ -23,7 +23,6 @@ function LiveOddListCell(props) {
     const { teamInfo } = refData;
     const { homeTeam: homeScore, awayTeam: awayScore } = data;
     const { homeTeam, awayTeam } = teamInfo;
-    console.log('haha', refData, homeTeam, awayTeam);
     return (
       <div className={cns(mainClassName, className)}>
         <div className="flex-row">

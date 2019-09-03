@@ -60,7 +60,6 @@ export const setArticles = (state, { articles }) => ({
 });
 
 export const setArticle = (state, { articleId }) => {
-  console.log('inside setArticle :', state, articleId);
   const articleList = state.list;
   const currentArticle = articleList.find(article => article.id === articleId);
   if (Object.keys(currentArticle).length) {

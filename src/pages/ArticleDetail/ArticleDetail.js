@@ -12,7 +12,6 @@ const { Title } = Typography;
 
 export default function ArticleDetail(props) {
   const { article } = props.location.state;
-  console.log('article in ArticleDetail :', article);
   const mainClassName = 'article-detail';
   return (
     <Page>

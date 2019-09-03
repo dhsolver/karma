@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cns from 'classnames';
 import { Typography } from 'antd';
+import SvgInline from '@components/common/SvgInline';
 
 const { Text } = Typography;
 
 const CELL_TYPES = {
-  GAME: 'gameInfo',
+  GAME: 'score',
   OVERUNDER: 'ou',
-  SPREAD: 'spread'
+  SPREAD: 'spread',
+  KARMAPICK: 'karmaPick',
+  KARMSIM: 'karmaSim'
 };
 
 function LiveOddListCell(props) {
@@ -17,61 +20,93 @@ function LiveOddListCell(props) {
   const mainClassName = 'live-odds-list__two-row-cell';
 
   const renderGameInfo = () => {
-    const { homeTeam, awayTeam } = data;
+    const { teamInfo } = refData;
+    const { homeTeam: homeScore, awayTeam: awayScore } = data;
+    const { homeTeam, awayTeam } = teamInfo;
     return (
       <div className={cns(mainClassName, className)}>
         <div className="flex-row">
-          <Text>{homeTeam.name}</Text>
+          <div className="flex-col">
+            <SvgInline url={homeTeam.logo} />
+          </div>
+
+          <div className="flex-col">
+            <Text>{homeTeam.name}</Text>
+          </div>
+
+          <div className="flex-col score">
+            <Text>{homeScore.score}</Text>
+          </div>
         </div>
         <div className="flex-row">
-          <Text>{awayTeam.name}</Text>
+          <div className="flex-col">
+            <SvgInline url={awayTeam.logo} />
+          </div>
+
+          <div className="flex-col">
+            <Text>{awayTeam.name}</Text>
+          </div>
+
+          <div className="flex-col score">
+            <Text>{awayScore.score}</Text>
+          </div>
         </div>
       </div>
     );
   };
 
   const renderOU = () => {
-    const overUnder = data;
-    const { moneyLine } = refData;
-    const { homeTeam, awayTeam } = moneyLine;
+    const { overUnder, overPayout, underPayout } = data;
     return (
       <div className={cns(mainClassName, className)}>
         <div className="flex-row right-align">
           <Text>{overUnder}</Text>
-          <Text>{`O ${homeTeam}`}</Text>
+          <Text>{`O ${overPayout}`}</Text>
         </div>
         <div className="flex-row right-align">
-          <Text>{`U ${awayTeam}`}</Text>
+          <Text>{`U ${underPayout}`}</Text>
         </div>
       </div>
     );
   };
 
   const renderSpread = () => {
-    const spread = data;
-    const { moneyLine } = refData;
-    const { homeTeam, awayTeam } = moneyLine;
+    const { homeTeam, awayTeam } = data;
     return (
       <div className={cns(mainClassName, className)}>
         <div className="flex-row">
-          <Text>{`-${spread}(${homeTeam})`}</Text>
+          <Text>{`${homeTeam.pointSpread}(${homeTeam.pointPayout})`}</Text>
         </div>
         <div className="flex-row">
-          <Text>{`+${spread}(${awayTeam})`}</Text>
+          <Text>{`-${awayTeam.pointSpread}(${awayTeam.pointPayout})`}</Text>
         </div>
       </div>
     );
   };
 
-  const renderTextContent = () => {
-    const { homeTeam, awayTeam } = data;
+  const renderKarma = () => {
+    const { teamKey, value, percentage } = data;
     return (
       <div className={cns(mainClassName, className)}>
         <div className="flex-row">
-          <Text>{homeTeam}</Text>
+          <Text>
+            {percentage
+              ? `${teamKey} ${value}, ${percentage}%`
+              : `${teamKey} ${value}`}
+          </Text>
+        </div>
+      </div>
+    );
+  };
+
+  const renderDummy = () => {
+    return (
+      <div className={cns(mainClassName, className)}>
+        <div className="flex-row">
+          <Text>-106</Text>
         </div>
         <div className="flex-row">
-          <Text>{awayTeam}</Text>
+          <Text>-104</Text>
         </div>
       </div>
     );
@@ -84,9 +119,12 @@ function LiveOddListCell(props) {
       return renderOU();
     case CELL_TYPES.SPREAD:
       return renderSpread();
+    case CELL_TYPES.KARMAPICK:
+    case CELL_TYPES.KARMSIM:
+      return renderKarma();
     default:
   }
-  return renderTextContent();
+  return renderDummy();
 }
 
 LiveOddListCell.propTypes = {

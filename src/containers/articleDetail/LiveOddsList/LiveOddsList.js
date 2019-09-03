@@ -21,32 +21,33 @@ function LiveOddsList(props) {
 
   const renderCell = (cell, col, row) => {
     const { dataIndex } = col;
-    return <LiveOddListCell data={cell} type={dataIndex} refData={row} />;
+    const type = dataIndex.split('.').pop();
+    return <LiveOddListCell data={cell} type={type} refData={row} />;
   };
 
   const cols = [
     {
       title: '',
-      dataIndex: 'gameInfo',
+      dataIndex: 'score',
       width: '320px',
       align: 'left',
       renderCell
     },
     {
       title: 'OPEN',
-      dataIndex: 'open',
+      dataIndex: 'liveOdd.moneyLine',
       width: '320px',
       renderCell
     },
     {
       title: 'LIVE',
-      dataIndex: 'live',
+      dataIndex: 'liveOdd.live',
       width: '320px',
       renderCell
     },
     {
       title: 'SPR',
-      dataIndex: 'spread',
+      dataIndex: 'liveOdd.spread',
       width: '320px',
       align: 'right',
       renderCell
