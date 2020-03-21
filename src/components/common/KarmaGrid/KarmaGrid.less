@@ -1,0 +1,69 @@
+@import '../../../styles/variables.less';
+
+.karma-table {
+  &__header-row {
+    padding: 0px 12px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 48px;
+
+    opacity: 0.8;
+    font-size: 12px;
+    font-weight: bold;
+
+    .karma-table--col {
+      text-transform: capitalize;
+    }
+  }
+
+  &__row {
+    padding: 0px 12px;
+    height: 100px;
+    width: 100%;
+    border: 1px solid @border-color-base;
+    opacity: 0.8;
+    background-color: @background-color-base;
+    box-shadow: @box-shadow-base;
+
+    margin-bottom: 8px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__row.article-detail-grid {
+    margin-bottom: 0;
+  }
+
+  &__col {
+    flex: 1;
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    &--width {
+      flex: unset;
+    }
+
+    &--right {
+      align-items: flex-end;
+    }
+
+    &--left {
+      align-items: flex-start;
+    }
+
+    .svg-icon {
+      margin-top: 80px;
+      path {
+        fill: white;
+      }
+    }
+  }
+}

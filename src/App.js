@@ -6,8 +6,21 @@ import { Spin } from 'antd';
 import Login from '@pages/Login';
 import Home from '@pages/Home';
 import Account from '@pages/Account';
+import SingleBet from '@pages/SingleBet';
+import PropBet from '@pages/PropBet';
+import ParlayBet from '@pages/ParlayBet';
+import WhereToBet from '@pages/WhereToBet';
+import BetCalculator from '@pages/BetCalculator';
+import LiveOdds from '@pages/LiveOdds';
+import MLB from '@pages/MLB';
+import NBA from '@pages/NBA';
+// import EnterABet from '@pages/EnterABet';
+import Sales from '@pages/Sales';
+import SignUp from '@pages/SignUp';
+import ArticleDetail from '@pages/ArticleDetail';
 import AppActions, { AppSelectors } from '@redux/AppRedux';
 import { AuthSelectors } from '@redux/AuthRedux';
+import { ButtonDemo } from '@components/common/Button';
 
 import '@styles/main.less';
 
@@ -21,6 +34,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       }
     />
   );
+};
+
+PrivateRoute.propTypes = {
+  component: PropTypes.any
 };
 
 class App extends Component {
@@ -43,11 +60,52 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path="/home" component={Home} />
+        <Route exact path="/nfl" component={LiveOdds} />
+        <Route exact path="/mlb" component={MLB} />
+        <Route exact path="/nba" component={NBA} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/btn-demo" component={ButtonDemo} />
+        <Route exact path="/where-to-bet" component={WhereToBet} />
+        <Route exact path="/bet-calculator" component={BetCalculator} />
+        {/*<Route exact path="/my-bet-tracker" component={MyBetTracker} />
+        <Route exact path="/enter-a-bet" component={EnterABet} />*/}
+        <Route exact path="/sales" component={Sales} />
+        <Route exact path="/sign-up" component={SignUp} />
+        <Route exact path="/article" component={ArticleDetail} />
         <PrivateRoute
           exact
           path="/account"
           component={Account}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/my-bet-tracker"
+          component={SingleBet}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/enter-bet"
+          component={SingleBet}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/single-game"
+          component={SingleBet}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/prop-bet"
+          component={PropBet}
+          isAuthenticated={!!isLoggedIn}
+        />
+        <PrivateRoute
+          exact
+          path="/parlay"
+          component={ParlayBet}
           isAuthenticated={!!isLoggedIn}
         />
         <Route render={() => <Redirect to="/home" />} />

@@ -1,0 +1,224 @@
+@import '../../../styles/variables.less';
+.ant-btn {
+  &.btn {
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    display: inline-flex;
+
+    outline: none;
+    font-weight: 500;
+    padding: 0px 15px;
+    margin: 4px 2px;
+    align-items: center;
+    justify-content: center;
+  }
+  & > svg {
+    height: inherit;
+  }
+
+  /* Size */
+  &&-very-large {
+    height: 54px;
+    font-size: 15px;
+  }
+  &&-large {
+    height: 44px;
+    font-size: 15px;
+  }
+  &&-normal {
+    height: 38px;
+    font-size: 12px;
+  }
+  &&-small {
+    height: 31px;
+    font-size: 12px;
+    @media only screen and (max-width: 900px) {
+      height: 20px;
+      font-size: 12px;
+      padding: 0 8px;
+    }
+    
+  }
+  &&-very-small {
+    height: 24px;
+    font-size: 12px;
+    @media only screen and (max-width: 900px) {
+      height: 16px;
+      font-size: 10px;
+      padding: 0 4px;
+    }
+  }
+  
+  /* Type */
+  &&-primary {
+    background-color: @orange;
+    color: @white;
+    border: none;
+    & > svg {
+      fill: @white;
+    }
+    &:hover,
+    &:focus {
+      background-color: lighten(@orange, 4%);
+      box-shadow: 0px 2px 10px fadeout(@orange, 45%);
+    }
+    &:active {
+      background-color: lighten(@orange, 10%);
+      box-shadow: 0px 4px 20px fadeout(@orange, 80%);
+    }
+
+  }
+  &&-secondary{
+    background-color: @green;
+    color: @black;
+    border: none;
+    & > svg {
+      fill: @black;
+    }
+    &:hover,
+    &:focus {
+      background-color: lighten(@green, 4%);
+      box-shadow: 0px 2px 10px fadeout(@green, 45%);
+      color: @black;
+    }
+    &:active {
+      background-color: lighten(@green, 10%);
+      box-shadow: 0px 4px 20px fadeout(@green, 80%);
+      color: @black;
+    }
+  }
+
+  /* Outline */
+  &&-outline {
+    &-primary {
+      background-color: @black;
+      color: @orange;
+      border-color: darken(@orange, 4%);
+      & > svg {
+        fill: @orange;
+      }
+      &:hover,
+      &:focus {
+        color: @orange;
+        border-color: darken(@orange, 4%);
+        background-color: fadeout(@orange, 90%);
+        box-shadow: 0px 2px 10px fadeout(@orange, 90%);
+      }
+      &:active {
+        background-color: fadeout(@orange, 80%);
+        box-shadow: 0px 4px 20px fadeout(@orange, 90%);
+      }
+    }
+    &-secondary {
+      background-color: @black;
+      color: @green;
+      border-color: darken(@green, 4%);
+      & > svg {
+        fill: @green;
+      }
+      &:hover,
+      &:focus {
+        color: @green;
+        border-color: darken(@green, 4%);
+        background-color: fadeout(@green, 90%);
+        box-shadow: 0px 2px 10px fadeout(@green, 90%);
+      }
+      &:active {
+        background-color: fadeout(@green, 80%);
+        box-shadow: 0px 4px 20px fadeout(@green, 90%);
+      }
+    }
+    
+    /*
+     &&-outline {
+      &-primary {
+        background-color: @black;
+        color: @orange;
+        border-color: darken(@orange, 4%);
+        & > svg {
+          fill: @orange;
+          & > path {
+            stroke: @orange;
+            fill: transparent;
+          }
+        }
+        &:hover, &:focus {
+          color: @orange;
+        border-color: darken(@orange, 4%);
+          background-color: fadeout(@orange, 90%);
+          box-shadow: 0px 2px 10px fadeout(@orange, 90%);
+        }
+        &:active {
+          background-color: fadeout(@orange, 80%);
+          box-shadow: 0px 4px 20px fadeout(@orange, 90%);
+        }
+      }
+      &-secondary {
+        background-color: @black;
+        color: @green;
+        border-color: darken(@green, 4%);
+        & > svg {
+          fill: @green;
+          & > path {
+            stroke: @green;
+            fill: transparent;
+          }
+        }
+        &:hover, &:focus {
+          color: @green;
+        border-color: darken(@green, 4%);
+          background-color: fadeout(@green, 90%);
+          box-shadow: 0px 2px 10px fadeout(@green, 90%);
+        }
+        &:active {
+          background-color: fadeout(@green, 80%);
+          box-shadow: 0px 4px 20px fadeout(@green, 90%);
+        }
+      }
+  } */
+}
+  /* Variants */
+  &&-cta {
+    font-weight: 600;
+    text-transform: uppercase;
+    &.ant-btn.ant-btn-normal{
+      padding: 0px 30px;
+    }
+  }
+  &&-karma-pick {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: linear-gradient(#fe6c3b, #e14613);
+    color: @white;
+    border: @white;
+    font-weight: 600;
+    text-transform: uppercase;
+    &:hover,
+    &:focus {
+      background: linear-gradient(lighten(#fe6c3b, 4%), lighten(#e14613, 4%));
+      box-shadow: 0px 2px 10px fadeout(#fe6c3b, 45%);
+      color: @white;
+    }
+    &:active {
+      background: linear-gradient(lighten(#fe6c3b, 10%), lighten(#e14613, 10%));
+      box-shadow: 0px 4px 20px fadeout(#fe6c3b, 80%);
+      color: @white;
+    }
+  }
+
+  /* disabled */
+  &:disabled {
+    background-color: @input-bg;
+    border: 1px solid @border-color-base;
+    color: @border-color-base;
+    box-shadow: none;
+    cursor: not-allowed;
+
+    & > svg {
+      stroke: @border-color-base;
+      /* & > path {
+        stroke: @border-color-base;
+        fill: transparent;
+      } */
+    }
+  }
+}

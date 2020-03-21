@@ -1,0 +1,60 @@
+@import "../../styles/variables.less";
+
+.sales {
+    &-header{
+        background: linear-gradient(fade(@black,80%), fade(@black,40%)), url("../../assets/images/salesPage/background.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        padding: 50px 0;
+        @media only screen and (max-width: 900px){
+            padding: 20px 0;
+        }
+    }
+    &-main-heading{
+        h1&{
+            font-size: 57px;
+            color: @primary-color;
+            margin-bottom: 5px;
+            @media only screen and (max-width: 580px){
+                font-size: 40px;
+            }
+            @media only screen and (max-width: 380px){
+                font-size: 34px;
+            }
+        }
+        
+    }
+    span&-sub-heading{
+        font-size: 19px;
+        width: 40%;
+        min-width: 380px;
+        text-align: center;
+        margin-bottom: 50px;
+        @media only screen and (max-width: 580px){
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+        @media only screen and (max-width: 390px){
+            font-size: 15px;
+            min-width: 300px;
+            margin-bottom: 20px;
+        }
+        
+    }
+    &-footer{
+
+        background: linear-gradient(fade(@black,80%), fade(@black,40%)),url("../../assets/images/salesPage/background.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center bottom;
+        
+        
+        &-content{
+            width:35%;
+            min-width: 220px;
+            margin: 80px auto;
+            text-align: center;
+        }
+    }
+}
